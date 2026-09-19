@@ -2,6 +2,10 @@ import type { ParamMatcher } from '@sveltejs/kit';
 
 const validSlugs = new Set([
   'menu',
+  'stala-nabidka',
+  'food-menu',
+  'napoje',
+  'drinks',
   'o-nas',
   'about',
   'kontakt',

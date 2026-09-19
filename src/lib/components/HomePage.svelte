@@ -24,8 +24,8 @@
     {/each}
     <p class="desktop-link">{restaurant.phone}</p>
 
-    <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.menuDocuments.food}>{copy.foodMenu}</a>
-    <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.menuDocuments.drinks}>{copy.drinks}</a>
+    <a class="desktop-link" href={routePath(lang, 'food')}>{copy.foodMenu}</a>
+    <a class="desktop-link" href={routePath(lang, 'drinks')}>{copy.drinks}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a>
@@ -50,8 +50,8 @@
     <br />
     <p>{restaurant.phone}</p>
     <br />
-    <p><a target="_blank" rel="noreferrer" href={restaurant.menuDocuments.food}>{copy.foodMenu}</a></p>
-    <p><a target="_blank" rel="noreferrer" href={restaurant.menuDocuments.drinks}>{copy.drinks}</a></p>
+    <p><a href={routePath(lang, 'food')}>{copy.foodMenu}</a></p>
+    <p><a href={routePath(lang, 'drinks')}>{copy.drinks}</a></p>
     <br />
     <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a></p>

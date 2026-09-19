@@ -45,6 +45,13 @@
 {/if}
 
 <style>
+  @font-face {
+    font-family: 'PP Montreal';
+    src: url('/fonts/PPNeueMontreal-Regular.woff2') format('woff2'),
+      url('/fonts/PPNeueMontreal-Regular.woff') format('woff');
+    font-display: swap;
+  }
+
   :global(*) {
     box-sizing: border-box;
   }
@@ -52,7 +59,7 @@
   :global(html) {
     color: #1f211d;
     background: #f3f0e8;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'PP Montreal', Arial, sans-serif;
   }
 
   :global(body) {

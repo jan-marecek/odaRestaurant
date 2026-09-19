@@ -10,7 +10,6 @@
     display: block;
     width: var(--oda-logo-width, 25vh);
     height: auto;
-    overflow: visible;
     fill: var(--oda-logo-color, #ff5500);
   }
 </style>

@@ -28,7 +28,7 @@
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a>
-    <a class="language-link" href={translatedPath(page.url.pathname, otherLanguage)}>{otherLanguage === 'cz' ? 'Cz' : 'En'}</a>
+    <a class="language-link" href={translatedPath(page.url.pathname, otherLanguage)} onclick={() => (menuOpen = false)}>{otherLanguage === 'cz' ? 'Cz' : 'En'}</a>
 
     <button
       class="mobile-menu-toggle"
@@ -49,8 +49,8 @@
     <br />
     <p>{restaurant.phone}</p>
     <br />
-    <p><a href={routePath(lang, 'food')}>{copy.foodMenu}</a></p>
-    <p><a href={routePath(lang, 'drinks')}>{copy.drinks}</a></p>
+    <p><a href={routePath(lang, 'food')} onclick={() => (menuOpen = false)}>{copy.foodMenu}</a></p>
+    <p><a href={routePath(lang, 'drinks')} onclick={() => (menuOpen = false)}>{copy.drinks}</a></p>
     <br />
     <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a></p>
@@ -75,13 +75,13 @@
     font-family: 'PP Montreal', Arial, sans-serif;
     font-size: 18px;
     line-height: normal;
-    white-space: nowrap;
     -webkit-font-smoothing: antialiased;
   }
 
   .top-menu p,
   .mobile-overlay p {
     margin: 0;
+    cursor: default;
   }
 
   .top-menu a,
@@ -111,15 +111,16 @@
   }
 
   @media (max-width: 1220px) {
+    .top-menu {
+      justify-content: space-between;
+    }
+
     .desktop-link {
       display: none;
     }
 
     .mobile-menu-toggle {
       display: inline-block;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       cursor: pointer;
     }
 

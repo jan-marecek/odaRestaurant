@@ -45,8 +45,7 @@
     display: flex;
     width: max-content;
     height: 100%;
-    animation: carousel-scroll 120s linear infinite;
-    will-change: transform;
+    animation: scroll 160s linear infinite;
   }
 
   .carousel-group {
@@ -72,8 +71,8 @@
     pointer-events: none;
   }
 
-  @keyframes carousel-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% / 2)); }
   }
 </style>

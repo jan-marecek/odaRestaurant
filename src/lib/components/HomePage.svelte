@@ -18,6 +18,9 @@
 
 <div class:menu-open={menuOpen} class="homepage">
   <nav class="top-menu" aria-label={lang === 'cz' ? 'Hlavní navigace' : 'Main navigation'}>
+    <a class="header-logo" href={routePath(lang, 'home')} aria-label={lang === 'cz' ? 'Zpět na hlavní stránku' : 'Back to homepage'}>
+      <OdaLogo />
+    </a>
     <p class="desktop-link">{restaurant.address.street}, {restaurant.address.postalCode}, {addressCity}</p>
     {#each restaurant.openingHours as hours}
       <p class="desktop-link">{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>
@@ -104,12 +107,23 @@
     color: #000;
     font-size: 18px;
     line-height: normal;
+    white-space: nowrap;
     -webkit-font-smoothing: antialiased;
   }
 
   .top-menu p,
   .mobile-overlay p {
     margin: 0;
+  }
+
+  .header-logo {
+    --oda-logo-width: 1.75rem;
+    --oda-logo-color: #000;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    align-self: center;
+    line-height: 0;
   }
 
   .top-menu a,
@@ -186,7 +200,7 @@
 
   @media (max-width: 1220px) {
     .top-menu {
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     .desktop-link {
@@ -195,6 +209,9 @@
 
     .mobile-menu-toggle {
       display: inline-block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       cursor: pointer;
     }
 

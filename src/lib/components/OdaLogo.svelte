@@ -8,8 +8,9 @@
 <style>
   svg {
     display: block;
-    width: 25vh;
+    width: var(--oda-logo-width, 25vh);
     height: auto;
-    fill: #ff5500;
+    overflow: visible;
+    fill: var(--oda-logo-color, #ff5500);
   }
 </style>

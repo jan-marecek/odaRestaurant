@@ -63,7 +63,6 @@
     color: #111;
     background: #fff;
     font-family: 'PP Montreal', Arial, sans-serif;
-    box-shadow: 0 0.75rem 2.5rem rgb(0 0 0 / 8%);
   }
 
   .menu-logo {

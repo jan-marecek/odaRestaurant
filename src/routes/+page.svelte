@@ -1,11 +1,29 @@
 <script lang="ts">
-  import { base } from '$app/paths';
+  import HomePage from '$lib/components/HomePage.svelte';
 </script>
 
 <svelte:head>
   <title>ODA Restaurant</title>
-  <meta http-equiv="refresh" content={`0;url=${base}/cz/`} />
-  <meta name="robots" content="noindex" />
 </svelte:head>
 
-<p><a href={`${base}/cz/`}>Pokračovat na ODA Restaurant</a></p>
+<HomePage lang="cz" />
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    color: #111;
+    background: #000;
+    font-family: 'PP Montreal', Arial, sans-serif;
+  }
+
+  :global(body) {
+    margin: 0;
+  }
+
+  :global(a) {
+    color: inherit;
+  }
+</style>

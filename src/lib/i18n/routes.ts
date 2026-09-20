@@ -1,3 +1,4 @@
+import { base } from '$app/paths';
 import type { Language } from './config';
 
 export type RouteKey = 'home' | 'menu' | 'food' | 'drinks' | 'about' | 'contact' | 'reservations';
@@ -14,12 +15,13 @@ const slugs: Record<RouteKey, Record<Language, string>> = {
 
 export function routePath(language: Language, route: RouteKey): string {
   const slug = slugs[route][language];
-  return `/${language}${slug ? `/${slug}` : ''}/`;
+  return `${base}/${language}${slug ? `/${slug}` : ''}/`;
 }
 
 export function translatedPath(pathname: string, targetLanguage: Language): string {
-  const currentLanguage: Language = pathname.startsWith('/en') ? 'en' : 'cz';
-  const currentSlug = pathname.replace(/^\/(cz|en)\/?/, '').replace(/\/$/, '');
+  const localPathname = base && pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
+  const currentLanguage: Language = localPathname.startsWith('/en') ? 'en' : 'cz';
+  const currentSlug = localPathname.replace(/^\/(cz|en)\/?/, '').replace(/\/$/, '');
   const route = (Object.keys(slugs) as RouteKey[]).find(
     (key) => slugs[key][currentLanguage] === currentSlug
   );

@@ -7,7 +7,7 @@
 
   let { data, children } = $props();
   const lang = $derived(data.lang as Language);
-  const isHome = $derived(page.url.pathname === routePath(lang, 'home'));
+  const isHome = $derived(page.route.id === '/[lang=lang]');
 </script>
 
 <svelte:head>
@@ -28,13 +28,6 @@
 <main class:subpage={!isHome}>{@render children()}</main>
 
 <style>
-  @font-face {
-    font-family: 'PP Montreal';
-    src: url('/fonts/PPNeueMontreal-Regular.woff2') format('woff2'),
-      url('/fonts/PPNeueMontreal-Regular.woff') format('woff');
-    font-display: swap;
-  }
-
   :global(*) {
     box-sizing: border-box;
   }

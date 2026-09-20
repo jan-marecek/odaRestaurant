@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import type { Language } from '$lib/i18n/config';
   import OdaLogo from './OdaLogo.svelte';
   import SiteHeader from './SiteHeader.svelte';
 
   let { lang }: { lang: Language } = $props();
-  const images = Array.from({ length: 12 }, (_, index) => `/images/${index + 1}.webp`);
+  const images = Array.from({ length: 12 }, (_, index) => `${base}/images/${index + 1}.webp`);
 </script>
 
 <div class="homepage">

@@ -19,6 +19,9 @@
     { src: `${base}/images/11.webp`, width: 2730, height: 4096 },
     { src: `${base}/images/12.webp`, width: 1333, height: 2000 }
   ];
+
+  const responsiveSrc = (src: string, width: number) =>
+    src.replace(/(\d+)\.webp$/, `carousel/$1-${width}.webp`);
 </script>
 
 <div class="homepage">
@@ -30,12 +33,15 @@
         <div class="carousel-group">
           {#each images as image, index}
             <img
-              src={image.src}
+              src={responsiveSrc(image.src, 960)}
+              srcset={`${responsiveSrc(image.src, 640)} 640w, ${responsiveSrc(image.src, 960)} 960w, ${responsiveSrc(image.src, 1365)} 1365w`}
+              sizes="73.34vh"
               alt=""
               width={image.width}
               height={image.height}
-              loading={group === 0 ? 'eager' : 'lazy'}
+              loading={group === 0 && index === 0 ? 'eager' : 'lazy'}
               fetchpriority={group === 0 && index === 0 ? 'high' : 'auto'}
+              decoding={group === 0 && index === 0 ? 'sync' : 'async'}
             />
           {/each}
         </div>

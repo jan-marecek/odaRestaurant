@@ -1,6 +1,7 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import type { Language } from '$lib/i18n/config';
+  import { onMount } from 'svelte';
   import OdaLogo from './OdaLogo.svelte';
   import SiteHeader from './SiteHeader.svelte';
 
@@ -22,6 +23,38 @@
 
   const responsiveSrc = (src: string, width: number) =>
     src.replace(/(\d+)\.webp$/, `carousel/$1-${width}.webp`);
+
+  const responsiveSrcset = (src: string) =>
+    `${responsiveSrc(src, 640)} 640w, ${responsiveSrc(src, 960)} 960w, ${responsiveSrc(src, 1365)} 1365w`;
+
+  onMount(() => {
+    const timeouts: number[] = [];
+
+    const preloadRemainingImages = () => {
+      images.slice(2).forEach((image, index) => {
+        timeouts.push(
+          window.setTimeout(() => {
+            const preloader = new Image();
+            preloader.fetchPriority = 'low';
+            preloader.sizes = '73.34vh';
+            preloader.srcset = responsiveSrcset(image.src);
+            preloader.src = responsiveSrc(image.src, 960);
+          }, index * 750)
+        );
+      });
+    };
+
+    if (document.readyState === 'complete') {
+      preloadRemainingImages();
+    } else {
+      window.addEventListener('load', preloadRemainingImages, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener('load', preloadRemainingImages);
+      timeouts.forEach((timeout) => window.clearTimeout(timeout));
+    };
+  });
 </script>
 
 <div class="homepage">
@@ -34,12 +67,12 @@
           {#each images as image, index}
             <img
               src={responsiveSrc(image.src, 960)}
-              srcset={`${responsiveSrc(image.src, 640)} 640w, ${responsiveSrc(image.src, 960)} 960w, ${responsiveSrc(image.src, 1365)} 1365w`}
+              srcset={responsiveSrcset(image.src)}
               sizes="73.34vh"
               alt=""
               width={image.width}
               height={image.height}
-              loading={group === 0 && index === 0 ? 'eager' : 'lazy'}
+              loading={group === 0 && index < 2 ? 'eager' : 'lazy'}
               fetchpriority={group === 0 && index === 0 ? 'high' : 'auto'}
               decoding={group === 0 && index === 0 ? 'sync' : 'async'}
             />
@@ -69,23 +102,18 @@
   }
 
   .carousel-track {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .carousel-group {
-    position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
     width: max-content;
     height: 100%;
-    animation: scroll-first 160s linear infinite;
+    animation: scroll 160s linear infinite;
+    will-change: transform;
   }
 
-  .carousel-group:nth-child(2) {
-    animation-name: scroll-second;
+  .carousel-group {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    flex-shrink: 0;
   }
 
   .carousel-group img {
@@ -107,14 +135,9 @@
     pointer-events: none;
   }
 
-  @keyframes scroll-first {
+  @keyframes scroll {
     from { transform: translateX(0); }
-    to { transform: translateX(-100%); }
-  }
-
-  @keyframes scroll-second {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
 </style>

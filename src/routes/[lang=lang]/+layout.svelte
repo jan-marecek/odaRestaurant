@@ -2,17 +2,13 @@
   import { page } from '$app/state';
   import OdaLogo from '$lib/components/OdaLogo.svelte';
   import SiteHeader from '$lib/components/SiteHeader.svelte';
-  import { localeByLanguage, type Language } from '$lib/i18n/config';
+  import type { Language } from '$lib/i18n/config';
   import { routePath } from '$lib/i18n/routes';
 
   let { data, children } = $props();
   const lang = $derived(data.lang as Language);
   const isHome = $derived(page.route.id === '/[lang=lang]');
 </script>
-
-<svelte:head>
-  <html lang={localeByLanguage[lang]}></html>
-</svelte:head>
 
 {#if !isHome}
   <SiteHeader {lang} />

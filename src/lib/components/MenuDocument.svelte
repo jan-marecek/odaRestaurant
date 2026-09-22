@@ -1,9 +1,22 @@
 <script lang="ts">
+  import { base } from '$app/paths';
+  import { restaurant } from '$lib/data/restaurant';
   import { menuContent, type MenuItem } from '$lib/data/menu';
   import type { Language } from '$lib/i18n/config';
 
   let { lang, kind }: { lang: Language; kind: 'food' | 'drinks' } = $props();
   const menu = $derived(menuContent[lang]);
+  const downloadHref = $derived(`${base}${restaurant.menuDocuments[kind]}`);
+  const downloadLabel = $derived(
+    lang === 'cz'
+      ? kind === 'food'
+        ? 'Stáhnout jídelní lístek (PDF)'
+        : 'Stáhnout nápojový lístek (PDF)'
+      : kind === 'food'
+        ? 'Download food menu (PDF)'
+        : 'Download drinks menu (PDF)'
+  );
+  const downloadFilename = $derived(kind === 'food' ? 'oda-jidlo.pdf' : 'oda-napoje.pdf');
 </script>
 
 {#snippet itemRow(item: MenuItem)}
@@ -52,6 +65,8 @@
       {/each}
     </div>
   {/if}
+
+  <a class="download-button" href={downloadHref} download={downloadFilename}>{downloadLabel}</a>
 </article>
 
 <style>
@@ -143,6 +158,16 @@
 
   .drink-section .subheading {
     margin-top: 0.5rem;
+  }
+
+  .download-button {
+    display: block;
+    width: fit-content;
+    margin: 3rem auto 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid;
+    color: #111;
+    text-decoration: none;
   }
 
   .section-note {

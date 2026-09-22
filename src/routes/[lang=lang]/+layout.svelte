@@ -57,10 +57,6 @@
     line-height: 0;
   }
 
-  .home-logo:hover {
-    transform: scale(1.04);
-  }
-
   @media (max-width: 40rem) {
     .home-logo {
       --oda-logo-width: 4.5rem;

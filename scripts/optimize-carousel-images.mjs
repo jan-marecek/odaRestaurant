@@ -4,7 +4,7 @@ import sharp from 'sharp';
 
 const sourceDirectory = 'static/images';
 const outputDirectory = path.join(sourceDirectory, 'carousel');
-const widths = [640, 960, 1365];
+const widths = [640, 960, 1120, 1365];
 
 await mkdir(outputDirectory, { recursive: true });
 

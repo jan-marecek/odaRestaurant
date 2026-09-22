@@ -25,7 +25,7 @@
     src.replace(/(\d+)\.webp$/, `carousel/$1-${width}.webp`);
 
   const responsiveSrcset = (src: string) =>
-    `${responsiveSrc(src, 640)} 640w, ${responsiveSrc(src, 960)} 960w, ${responsiveSrc(src, 1365)} 1365w`;
+    `${responsiveSrc(src, 640)} 640w, ${responsiveSrc(src, 960)} 960w, ${responsiveSrc(src, 1120)} 1120w, ${responsiveSrc(src, 1365)} 1365w`;
 
   onMount(() => {
     const timeouts: number[] = [];
@@ -39,7 +39,7 @@
             preloader.sizes = '73.34vh';
             preloader.srcset = responsiveSrcset(image.src);
             preloader.src = responsiveSrc(image.src, 960);
-          }, index * 750)
+          }, (index + 1) * 6000)
         );
       });
     };

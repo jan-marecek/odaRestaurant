@@ -111,9 +111,4 @@
     to { transform: translateX(0); }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .carousel-group {
-      animation-play-state: paused;
-    }
-  }
 </style>

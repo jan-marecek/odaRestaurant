@@ -114,8 +114,6 @@
     width: max-content;
     height: 100%;
     animation: scroll 160s linear infinite;
-    animation-delay: -35.333s;
-    animation-play-state: paused;
     will-change: transform;
   }
 

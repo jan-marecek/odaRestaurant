@@ -65,17 +65,25 @@
       {#each [0, 1] as group}
         <div class="carousel-group">
           {#each images as image, index}
-            <img
-              src={responsiveSrc(image.src, 960)}
-              srcset={responsiveSrcset(image.src)}
-              sizes="73.34vh"
-              alt=""
-              width={image.width}
-              height={image.height}
-              loading={group === 0 && index < 2 ? 'eager' : 'lazy'}
-              fetchpriority={group === 0 && index === 0 ? 'high' : 'auto'}
-              decoding={group === 0 && index === 0 ? 'sync' : 'async'}
-            />
+            <div class="carousel-item">
+              <img
+                src={responsiveSrc(image.src, 960)}
+                srcset={responsiveSrcset(image.src)}
+                sizes="73.34vh"
+                alt=""
+                width={image.width}
+                height={image.height}
+                loading={group === 0 && index < 2 ? 'eager' : 'lazy'}
+                fetchpriority={group === 0 && index === 0 ? 'high' : 'auto'}
+                decoding={group === 0 && index === 0 ? 'sync' : 'async'}
+              />
+              {#if group === 0 && index === 4}
+                <p class="seo-caption" aria-hidden="false">
+                  Óda je moderní český gastrobar na Vinohradech v Praze. <br /> Stavíme na
+                  českých surovinách, fermentaci a vaření na otevřeném ohni.
+                </p>
+              {/if}
+            </div>
           {/each}
         </div>
       {/each}
@@ -106,6 +114,8 @@
     width: max-content;
     height: 100%;
     animation: scroll 160s linear infinite;
+    animation-delay: -35.333s;
+    animation-play-state: paused;
     will-change: transform;
   }
 
@@ -116,14 +126,41 @@
     flex-shrink: 0;
   }
 
-  .carousel-group img {
-    display: block;
+  .carousel-item {
+    position: relative;
     width: calc(110vh * 2 / 3);
     height: 100%;
     aspect-ratio: 2 / 3;
     flex-shrink: 0;
+  }
+
+  .carousel-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     background: #000;
+  }
+
+  .seo-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.76);
+    transform-origin: center;
+    margin: 0;
+    width: fit-content;
+    max-width: 82%;
+    padding: 2em 2em;
+    background: #000;
+    color: #7942d1;
+    font-size: 2.2rem;
+    font-weight: 900;
+    -webkit-text-stroke: 0.2px currentColor;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    text-align: center;
+    border-radius: 0;
   }
 
   .logo {

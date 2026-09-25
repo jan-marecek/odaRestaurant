@@ -6,6 +6,8 @@ const validSlugs = new Set([
   'food-menu',
   'napoje',
   'drinks',
+  'navsteva',
+  'visit',
   'o-nas',
   'about',
   'kontakt',

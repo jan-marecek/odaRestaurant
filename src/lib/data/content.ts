@@ -30,6 +30,7 @@ export const content: Record<Language, Translation> = {
       menu: 'Menu',
       food: 'Stálá nabídka',
       drinks: 'Nápoje',
+      visit: 'Návštěva',
       about: 'O nás',
       contact: 'Kontakt',
       reservations: 'Rezervace'
@@ -39,6 +40,7 @@ export const content: Record<Language, Translation> = {
       menu: { title: 'Menu', intro: 'Prohlédněte si naši stálou nabídku jídel a nápojů.' },
       food: { title: 'Stálá nabídka', intro: 'Aktuální nabídka jídel ODA Restaurant.' },
       drinks: { title: 'Nápoje', intro: 'Aktuální nabídka nápojů ODA Restaurant.' },
+      visit: { title: 'Návštěva', intro: 'Kde nás najdete a kdy máme otevřeno.' },
       about: { title: 'O nás', intro: 'Příběh restaurace a týmu doplníme v další fázi.' },
       contact: { title: 'Kontakt', intro: 'Najdete nás na adrese níže.' },
       reservations: { title: 'Rezervace', intro: 'Rezervační formulář připravujeme.' }
@@ -62,6 +64,7 @@ export const content: Record<Language, Translation> = {
       menu: 'Menu',
       food: 'Food menu',
       drinks: 'Drinks',
+      visit: 'Visit',
       about: 'About us',
       contact: 'Contact',
       reservations: 'Reservations'
@@ -71,6 +74,7 @@ export const content: Record<Language, Translation> = {
       menu: { title: 'Menu', intro: 'Explore our current food and drinks menus.' },
       food: { title: 'Food menu', intro: 'The current food menu at ODA Restaurant.' },
       drinks: { title: 'Drinks', intro: 'The current drinks menu at ODA Restaurant.' },
+      visit: { title: 'Visit', intro: 'Where to find us and when we are open.' },
       about: { title: 'About us', intro: 'The story of our restaurant and team will follow.' },
       contact: { title: 'Contact', intro: 'You can find us at the address below.' },
       reservations: { title: 'Reservations', intro: 'Our booking form is coming soon.' }

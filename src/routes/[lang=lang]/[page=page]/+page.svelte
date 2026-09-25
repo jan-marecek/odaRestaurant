@@ -20,7 +20,10 @@
   <meta name="description" content={copy.intro} />
 </svelte:head>
 
-<div class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'visit' || data.route === 'about'}>
+<div
+  class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'visit' || data.route === 'about'}
+  class:white-page={data.route === 'food' || data.route === 'drinks'}
+>
   {#if data.route === 'food' || data.route === 'drinks'}
     <MenuDocument kind={data.route} {lang} />
   {:else if data.route === 'visit'}
@@ -92,6 +95,10 @@
     padding-top: 2.5rem;
     overflow: auto;
     background: #bdbdbd;
+  }
+
+  .white-page {
+    background: #fff;
   }
 
   .visit-details {

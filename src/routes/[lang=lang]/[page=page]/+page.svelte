@@ -33,6 +33,7 @@
       {/each}
       <br />
       <p><a href={phoneUrl}>{restaurant.phone}</a></p>
+      <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
     </address>
   {:else if data.route === 'about'}
     <section class="about-copy">
@@ -100,6 +101,10 @@
 
   .visit-details p {
     margin: 0;
+  }
+
+  .visit-details a {
+    text-decoration: none;
   }
 
   .about-copy {

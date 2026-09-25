@@ -24,7 +24,6 @@
     <a class="desktop-link" href={routePath(lang, 'drinks')}>{copy.drinks}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a>
-    <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a>
     <a class="language-link" href={translatedPath(page.url.pathname, otherLanguage)} onclick={() => (menuOpen = false)}>{otherLanguage === 'cz' ? 'Cz' : 'En'}</a>
 
     <button
@@ -43,7 +42,6 @@
     <p><a href={routePath(lang, 'drinks')} onclick={() => (menuOpen = false)}>{copy.drinks}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a></p>
-    <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
   </div>
 </header>
 

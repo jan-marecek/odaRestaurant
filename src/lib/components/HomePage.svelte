@@ -77,18 +77,6 @@
                 fetchpriority={group === 0 && index === 0 ? 'high' : 'auto'}
                 decoding={group === 0 && index === 0 ? 'sync' : 'async'}
               />
-              {#if group === 0 && index === 4}
-                <p class="seo-caption seo-caption--purple" aria-hidden="false">
-                  Óda je moderní český gastrobar na Vinohradech v Praze. <br /> Stavíme na
-                  českých surovinách, fermentaci a vaření na otevřeném ohni.
-                </p>
-              {/if}
-              {#if group === 0 && index === 6}
-                <p class="seo-caption seo-caption--pink" aria-hidden="false">
-                  Óda je moderní český gastrobar na Vinohradech v Praze. <br /> Stavíme na
-                  českých surovinách, fermentaci a vaření na otevřeném ohni.
-                </p>
-              {/if}
             </div>
           {/each}
         </div>
@@ -144,36 +132,6 @@
     height: 100%;
     object-fit: cover;
     background: #000;
-  }
-
-  .seo-caption {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(var(--caption-scale, 0.65));
-    transform-origin: center;
-    margin: 0;
-    width: fit-content;
-    max-width: 82%;
-    padding: 2em 2em;
-    font-size: 2.2rem;
-    font-weight: 900;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
-    text-align: center;
-    border-radius: 0;
-  }
-
-  .seo-caption--purple {
-    --caption-scale: 0.82;
-    background: #000;
-    color: #7942d1;
-  }
-
-  .seo-caption--pink {
-    --caption-scale: 0.67;
-    background: #ffa0bc;
-    color: #fff;
   }
 
   .logo {

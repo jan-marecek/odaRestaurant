@@ -96,7 +96,7 @@
 
   .visit-details {
     padding: 8px;
-    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-size: 28px;
     font-style: normal;
     line-height: 1.2;
   }

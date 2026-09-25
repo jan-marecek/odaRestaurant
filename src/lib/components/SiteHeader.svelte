@@ -17,6 +17,7 @@
 
 <header class:menu-open={menuOpen}>
   <nav class="top-menu" aria-label={lang === 'cz' ? 'Hlavní navigace' : 'Main navigation'}>
+    <a class="desktop-link" href={routePath(lang, 'home')} aria-label={lang === 'cz' ? 'Úvodní stránka' : 'Homepage'}>ōda</a>
     <a class="desktop-link" href={routePath(lang, 'about')}>{navigation.about}</a>
     <a class="desktop-link" href={routePath(lang, 'visit')}>{navigation.visit}</a>
     <a class="desktop-link" href={routePath(lang, 'food')}>{copy.foodMenu}</a>
@@ -99,6 +100,12 @@
   .mobile-menu-toggle,
   .mobile-overlay {
     display: none;
+  }
+
+  @media (min-width: 1221px) {
+    .top-menu {
+      padding-left: 10px;
+    }
   }
 
   @media (max-width: 1220px) {

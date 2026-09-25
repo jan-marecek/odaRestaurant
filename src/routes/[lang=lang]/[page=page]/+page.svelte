@@ -27,19 +27,35 @@
   {#if data.route === 'food' || data.route === 'drinks'}
     <MenuDocument kind={data.route} {lang} />
   {:else if data.route === 'visit'}
-    <address class="visit-details">
-      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.street}</a></p>
-      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.postalCode}, {addressCity}</a></p>
-      <br />
-      {#each restaurant.openingHours as hours}
-        <p>{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>
-      {/each}
-      <br />
-      <p><a href={phoneUrl}>{restaurant.phone}</a></p>
-      <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
-      <br />
-      <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
-    </address>
+    <div class="visit-content">
+      <address class="visit-details">
+        <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.street}</a></p>
+        <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.postalCode}, {addressCity}</a></p>
+        <br />
+        {#each restaurant.openingHours as hours}
+          <p>{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>
+        {/each}
+        <br />
+        <p><a href={phoneUrl}>{restaurant.phone}</a></p>
+        <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
+        <br />
+        <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
+      </address>
+
+      {#if copy.reservationInfo}
+        <section class="reservation-info" aria-labelledby="reservation-info-title">
+          <h1 id="reservation-info-title">{copy.reservationInfo.title}</h1>
+          {#each copy.reservationInfo.sections as section}
+            <section>
+              <h2>{section.title}</h2>
+              <p>
+                {section.text}{#if section.email}<a href={`mailto:${section.email}`}>{section.email}</a>{/if}{section.suffix ?? ''}
+              </p>
+            </section>
+          {/each}
+        </section>
+      {/if}
+    </div>
   {:else if data.route === 'about'}
     <section class="about-copy">
       {#each copy.body ?? [] as paragraph}
@@ -101,11 +117,14 @@
     background: #fff;
   }
 
-  .visit-details {
+  .visit-content {
     padding: 8px;
     font-size: 28px;
-    font-style: normal;
     line-height: 1.2;
+  }
+
+  .visit-details {
+    font-style: normal;
   }
 
   .visit-details p {
@@ -114,6 +133,31 @@
 
   .visit-details a {
     text-decoration: none;
+  }
+
+  .reservation-info {
+    max-width: 70rem;
+    margin-top: 3rem;
+  }
+
+  .reservation-info h1,
+  .reservation-info h2,
+  .reservation-info p {
+    margin: 0;
+    font: inherit;
+  }
+
+  .reservation-info h1,
+  .reservation-info h2 {
+    font-weight: 400;
+  }
+
+  .reservation-info h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .reservation-info section {
+    margin-bottom: 1.5rem;
   }
 
   .about-copy {

@@ -5,6 +5,15 @@ type PageContent = {
   title: string;
   intro: string;
   body?: string[];
+  reservationInfo?: {
+    title: string;
+    sections: {
+      title: string;
+      text: string;
+      email?: string;
+      suffix?: string;
+    }[];
+  };
 };
 
 type Translation = {
@@ -41,7 +50,37 @@ export const content: Record<Language, Translation> = {
       menu: { title: 'Menu', intro: 'Prohlédněte si naši stálou nabídku jídel a nápojů.' },
       food: { title: 'Stálá nabídka', intro: 'Aktuální nabídka jídel ODA Restaurant.' },
       drinks: { title: 'Nápoje', intro: 'Aktuální nabídka nápojů ODA Restaurant.' },
-      visit: { title: 'Návštěva', intro: 'Kde nás najdete a kdy máme otevřeno.' },
+      visit: {
+        title: 'Návštěva',
+        intro: 'Kde nás najdete, kdy máme otevřeno a důležité informace k rezervaci.',
+        reservationInfo: {
+          title: 'Děkujeme za Vaši rezervaci!',
+          sections: [
+            {
+              title: 'Délka rezervace',
+              text: 'Vaše rezervace je standardně nastavena na 2,5 hodiny v případě degustačního menu, v ostatních případech na 2 hodiny. Pokud si přejete strávit u nás více či méně času, prosím uveďte to do poznámky.'
+            },
+            {
+              title: 'Výběr stolů',
+              text: 'V rámci online rezervace není možné vybrat konkrétní stůl. Může se stát, že budete usazeni také u baru nebo u sdíleného stolu. Obě sezení splňují standard našeho servisu a jsou plně vhodná pro oběd či večeři.'
+            },
+            {
+              title: 'Skupiny 7 a více osob',
+              text: 'Rezervace pro 7 a více osob je možná pouze po telefonu či přes e-mail ',
+              email: 'info@odarestaurant.cz',
+              suffix: '.'
+            },
+            {
+              title: 'Děti',
+              text: 'S ohledem na charakter našeho večerního servisu doporučujeme návštěvu naší restaurace s dětmi během oběda.'
+            },
+            {
+              title: 'Domácí mazlíčci',
+              text: 'Prosíme, nechte své zvířecí mazlíčky doma.'
+            }
+          ]
+        }
+      },
       about: {
         title: 'O nás',
         intro: 'Óda je moderní český gastrobar na Vinohradech v Praze.',
@@ -82,7 +121,37 @@ export const content: Record<Language, Translation> = {
       menu: { title: 'Menu', intro: 'Explore our current food and drinks menus.' },
       food: { title: 'Food menu', intro: 'The current food menu at ODA Restaurant.' },
       drinks: { title: 'Drinks', intro: 'The current drinks menu at ODA Restaurant.' },
-      visit: { title: 'Visit', intro: 'Where to find us and when we are open.' },
+      visit: {
+        title: 'Visit',
+        intro: 'Where to find us, when we are open and important information about reservations.',
+        reservationInfo: {
+          title: 'Thank you for your reservation!',
+          sections: [
+            {
+              title: 'Reservation Duration',
+              text: 'Your reservation is set for 2.5 hours when booking the tasting menu, and 2 hours for all other reservations. If you wish to spend more or less time with us, please note this in your reservation.'
+            },
+            {
+              title: 'Table Selection',
+              text: 'It is not possible to select a specific table when booking online. Please note that you may be seated at the bar or at a shared table. Both options meet our service standards and are fully suitable for lunch or dinner.'
+            },
+            {
+              title: 'Groups of 7 or More Guests',
+              text: 'Reservations for groups of 7 or more can only be made by phone or via email ',
+              email: 'info@odarestaurant.cz',
+              suffix: '.'
+            },
+            {
+              title: 'Children',
+              text: 'Due to the nature of our evening service, we recommend visiting our restaurant with children during lunchtime.'
+            },
+            {
+              title: 'Pets',
+              text: 'We kindly ask that you leave your pets at home.'
+            }
+          ]
+        }
+      },
       about: {
         title: 'About us',
         intro: 'Óda is a modern Czech gastrobar in Prague’s Vinohrady district.',

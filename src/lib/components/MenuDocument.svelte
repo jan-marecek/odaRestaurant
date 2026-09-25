@@ -66,13 +66,15 @@
     </div>
   {/if}
 
+  <!--
   <a class="download-button" href={downloadHref} download={downloadFilename}>{downloadLabel}</a>
+  -->
 </article>
 
 <style>
   .menu-document {
     width: min(100% - 2rem, 52rem);
-    min-height: 70rem;
+    min-height: 62rem;
     margin: 2rem auto 5rem;
     padding: clamp(2rem, 5vw, 4rem);
     color: #111;
@@ -102,7 +104,7 @@
   }
 
   .food-list {
-    max-width: 42rem;
+    width: 100%;
     margin-top: 2rem;
   }
 
@@ -160,7 +162,7 @@
     margin-top: 0.5rem;
   }
 
-  .download-button {
+  /* .download-button {
     display: block;
     width: fit-content;
     margin: 3rem auto 0;
@@ -168,7 +170,7 @@
     border: 1px solid;
     color: #111;
     text-decoration: none;
-  }
+  } */
 
   .section-note {
     max-width: 17rem;
@@ -181,7 +183,7 @@
       width: 100%;
       min-height: 0;
       margin: 0;
-      padding: 2rem 1.25rem 4rem;
+      padding: 2rem 1.25rem 2.5rem;
       box-shadow: none;
     }
 

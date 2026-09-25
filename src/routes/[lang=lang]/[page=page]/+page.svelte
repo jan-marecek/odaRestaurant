@@ -34,6 +34,8 @@
       <br />
       <p><a href={phoneUrl}>{restaurant.phone}</a></p>
       <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
+      <br />
+      <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
     </address>
   {:else if data.route === 'about'}
     <section class="about-copy">

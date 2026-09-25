@@ -60,7 +60,7 @@ export const content: Record<Language, Translation> = {
       menuComingSoon: 'Položky menu budou doplněny.',
       foodMenu: 'Stálá nabídka',
       drinks: 'Nápoje',
-      reservation: 'Rezervace',
+      reservation: 'rezervace',
       vouchers: 'Dárkové vouchery',
       menuOpen: 'menu',
       menuClose: 'zavřít'
@@ -101,7 +101,7 @@ export const content: Record<Language, Translation> = {
       menuComingSoon: 'Menu items will be added soon.',
       foodMenu: 'Food menu',
       drinks: 'Drinks',
-      reservation: 'Reservation',
+      reservation: 'reservation',
       vouchers: 'Gift vouchers',
       menuOpen: 'menu',
       menuClose: 'close'

@@ -20,7 +20,7 @@
   <meta name="description" content={copy.intro} />
 </svelte:head>
 
-<div class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'visit'}>
+<div class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'visit' || data.route === 'about'}>
   {#if data.route === 'food' || data.route === 'drinks'}
     <MenuDocument kind={data.route} {lang} />
   {:else if data.route === 'visit'}
@@ -34,6 +34,12 @@
       <br />
       <p><a href={phoneUrl}>{restaurant.phone}</a></p>
     </address>
+  {:else if data.route === 'about'}
+    <section class="about-copy">
+      {#each copy.body ?? [] as paragraph}
+        <p>{paragraph}</p>
+      {/each}
+    </section>
   {:else}
     <PageIntro title={copy.title} intro={copy.intro} />
   {/if}
@@ -87,13 +93,24 @@
 
   .visit-details {
     padding: 8px;
-    font-size: 18px;
+    font-size: clamp(1.3rem, 3vw, 2rem);
     font-style: normal;
     line-height: 1.2;
   }
 
   .visit-details p {
     margin: 0;
+  }
+
+  .about-copy {
+    max-width: 64rem;
+    padding: 8px;
+    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+    line-height: 1.2;
+  }
+
+  .about-copy p {
+    margin: 0 0 1.2em;
   }
 
   .contact-details {

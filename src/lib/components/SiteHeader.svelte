@@ -17,6 +17,7 @@
 
 <header class:menu-open={menuOpen}>
   <nav class="top-menu" aria-label={lang === 'cz' ? 'Hlavní navigace' : 'Main navigation'}>
+    <a class="desktop-link" href={routePath(lang, 'about')}>{navigation.about}</a>
     <a class="desktop-link" href={routePath(lang, 'visit')}>{navigation.visit}</a>
     <a class="desktop-link" href={routePath(lang, 'food')}>{copy.foodMenu}</a>
     <a class="desktop-link" href={routePath(lang, 'drinks')}>{copy.drinks}</a>
@@ -35,19 +36,21 @@
   </nav>
 
   <div class="mobile-overlay" id="mobile-menu" aria-hidden={!menuOpen}>
+    <p><a href={routePath(lang, 'about')} onclick={() => (menuOpen = false)}>{navigation.about}</a></p>
     <p><a href={routePath(lang, 'visit')} onclick={() => (menuOpen = false)}>{navigation.visit}</a></p>
-    <br />
     <p><a href={routePath(lang, 'food')} onclick={() => (menuOpen = false)}>{copy.foodMenu}</a></p>
     <p><a href={routePath(lang, 'drinks')} onclick={() => (menuOpen = false)}>{copy.drinks}</a></p>
-    <br />
     <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.voucherUrl}>{copy.vouchers}</a></p>
-    <br />
     <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
   </div>
 </header>
 
 <style>
+  header {
+    --menu-font-size: 18px;
+  }
+
   .top-menu {
     position: fixed;
     z-index: 1000;
@@ -61,7 +64,7 @@
     background: #ff5500;
     color: #000;
     font-family: 'PP Montreal', Arial, sans-serif;
-    font-size: 18px;
+    font-size: var(--menu-font-size);
     line-height: normal;
     text-transform: lowercase;
     -webkit-font-smoothing: antialiased;
@@ -120,7 +123,7 @@
       background: #bdbdbd;
       color: #000;
       font-family: 'PP Montreal', Arial, sans-serif;
-      font-size: 18px;
+      font-size: var(--menu-font-size);
       line-height: 1.2;
       text-transform: lowercase;
       -webkit-font-smoothing: antialiased;

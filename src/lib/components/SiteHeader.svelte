@@ -20,6 +20,7 @@
     <a class="desktop-link" href={routePath(lang, 'home')} aria-label={lang === 'cz' ? 'Úvodní stránka' : 'Homepage'}>ōda</a>
     <a class="desktop-link" href={routePath(lang, 'about')}>{navigation.about}</a>
     <a class="desktop-link" href={routePath(lang, 'visit')}>{navigation.visit}</a>
+    <a class="desktop-link" href={routePath(lang, 'contact')}>{navigation.contact}</a>
     <a class="desktop-link" href={routePath(lang, 'food')}>{copy.foodMenu}</a>
     <a class="desktop-link" href={routePath(lang, 'drinks')}>{copy.drinks}</a>
     <a class="desktop-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a>
@@ -38,6 +39,7 @@
   <div class="mobile-overlay" id="mobile-menu" aria-hidden={!menuOpen}>
     <p><a href={routePath(lang, 'about')} onclick={() => (menuOpen = false)}>{navigation.about}</a></p>
     <p><a href={routePath(lang, 'visit')} onclick={() => (menuOpen = false)}>{navigation.visit}</a></p>
+    <p><a href={routePath(lang, 'contact')} onclick={() => (menuOpen = false)}>{navigation.contact}</a></p>
     <p><a href={routePath(lang, 'food')} onclick={() => (menuOpen = false)}>{copy.foodMenu}</a></p>
     <p><a href={routePath(lang, 'drinks')} onclick={() => (menuOpen = false)}>{copy.drinks}</a></p>
     <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{copy.reservation}</a></p>

@@ -58,6 +58,7 @@ export const restaurant: Restaurant = {
     cz: 'Místo pro dobré jídlo a společné chvíle.',
     en: 'A place for good food and time together.'
   },
+  email: 'info@odarestaurant.cz',
   phone: '+420 727 890 014',
   address: {
     street: 'Chrudimská 5',
@@ -67,7 +68,7 @@ export const restaurant: Restaurant = {
   },
   openingHours: [
     {
-      days: { cz: 'St-Pa', en: 'We-Fr' },
+      days: { cz: 'Út-Pá', en: 'Tu-Fr' },
       opens: '16:00',
       closes: '23:00'
     },

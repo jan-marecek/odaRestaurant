@@ -17,42 +17,42 @@
 
 <svelte:head>
   <title>{copy.title} | ODA Restaurant</title>
-  <meta name="description" content={copy.intro} />
+  <meta name="description" content={copy.metaDescription ?? copy.intro} />
 </svelte:head>
 
 <div
-  class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'visit' || data.route === 'about'}
-  class:white-page={data.route === 'food' || data.route === 'drinks'}
+  class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'tasting' || data.route === 'visit' || data.route === 'about' || data.route === 'contact'}
+  class:white-page={data.route === 'food' || data.route === 'drinks' || data.route === 'tasting'}
 >
-  {#if data.route === 'food' || data.route === 'drinks'}
+  {#if data.route === 'food' || data.route === 'drinks' || data.route === 'tasting'}
     <MenuDocument kind={data.route} {lang} />
   {:else if data.route === 'visit'}
     <div class="visit-content">
-      <address class="visit-details">
-        <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.street}</a></p>
-        <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.postalCode}, {addressCity}</a></p>
-        <br />
-        {#each restaurant.openingHours as hours}
-          <p>{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>
-        {/each}
-        <br />
-        <p><a href={phoneUrl}>{restaurant.phone}</a></p>
-        <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
-        <br />
-        <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
-      </address>
-
       {#if copy.reservationInfo}
-        <section class="reservation-info" aria-labelledby="reservation-info-title">
-          <h1 id="reservation-info-title">{copy.reservationInfo.title}</h1>
+        <section class="reservation-info">
           {#each copy.reservationInfo.sections as section}
             <section>
-              <h2>{section.title}</h2>
-              <p>
-                {section.text}{#if section.email}<a href={`mailto:${section.email}`}>{section.email}</a>{/if}{section.suffix ?? ''}
-              </p>
+              {#if section.title}
+                <h2>
+                  {#if section.reservationLink}
+                    <a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{section.title}</a>
+                  {:else if section.link}
+                    <a href={routePath(lang, section.link)}>{section.title}</a>
+                  {:else}
+                    {section.title}
+                  {/if}
+                </h2>
+              {/if}
+              {#if section.paragraphs}
+                {#each section.paragraphs as paragraph}<p>{paragraph}</p>{/each}
+              {:else}
+                <p>
+                  {section.text}{#if section.email}<a href={`mailto:${section.email}`}>{section.email}</a>{/if}{section.suffix ?? ''}
+                </p>
+              {/if}
             </section>
           {/each}
+          {#if copy.reservationInfo.closing}<p class="reservation-closing">{copy.reservationInfo.closing}</p>{/if}
         </section>
       {/if}
     </div>
@@ -62,6 +62,22 @@
         <p>{paragraph}</p>
       {/each}
     </section>
+  {:else if data.route === 'contact'}
+    <address class="contact-details">
+      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.street}</a></p>
+      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.postalCode}, {addressCity}</a></p>
+      <br />
+      {#each restaurant.openingHours as hours}
+        <p>{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>
+      {/each}
+      <p>{t.common.closedDays}</p>
+      <br />
+      <p><a href={phoneUrl}>{restaurant.phone}</a></p>
+      {#if restaurant.email}<p><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></p>{/if}
+      <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
+      <br />
+      <p><a class="reservation-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
+    </address>
   {:else}
     <PageIntro title={copy.title} intro={copy.intro} />
   {/if}
@@ -71,28 +87,6 @@
       <a href={routePath(lang, 'food')}>{t.common.foodMenu}<span aria-hidden="true">→</span></a>
       <a href={routePath(lang, 'drinks')}>{t.common.drinks}<span aria-hidden="true">→</span></a>
     </section>
-  {:else if data.route === 'contact'}
-    <address class="content-section contact-details">
-      <div>
-        <h2>{t.common.address}</h2>
-        <p>
-          <a target="_blank" rel="noreferrer" href={mapsUrl}>
-            {restaurant.address.street}<br />{restaurant.address.postalCode} {addressCity}
-          </a>
-        </p>
-      </div>
-      <div>
-        <h2>{t.common.openingHours}</h2>
-        {#each restaurant.openingHours as hours}
-          <p>{hours.days[lang]}: {hours.opens}–{hours.closes}</p>
-        {/each}
-      </div>
-      <div>
-        <h2>{lang === 'cz' ? 'Telefon' : 'Phone'}</h2>
-        <p><a href={phoneUrl}>{restaurant.phone}</a></p>
-        {#if restaurant.email}<p><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></p>{/if}
-      </div>
-    </address>
   {/if}
 </div>
 
@@ -123,41 +117,32 @@
     line-height: 1.2;
   }
 
-  .visit-details {
-    font-style: normal;
-  }
-
-  .visit-details p {
-    margin: 0;
-  }
-
-  .visit-details a {
-    text-decoration: none;
-  }
-
   .reservation-info {
     max-width: 70rem;
-    margin-top: 3rem;
   }
 
-  .reservation-info h1,
-  .reservation-info h2,
   .reservation-info p {
     margin: 0;
     font: inherit;
   }
 
-  .reservation-info h1,
   .reservation-info h2 {
-    font-weight: 400;
-  }
-
-  .reservation-info h1 {
-    margin-bottom: 1.5rem;
+    margin: 3rem 0 0.5rem;
+    font: inherit;
+    font-weight: 500;
+    text-decoration: underline;
   }
 
   .reservation-info section {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .reservation-info section p + p {
+    margin-top: 1rem;
+  }
+
+  .reservation-closing {
+    margin-top: 1.5rem;
   }
 
   .about-copy {
@@ -172,20 +157,22 @@
   }
 
   .contact-details {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem;
+    padding: 8px;
+    font-style: normal;
+    font-size: 28px;
+    line-height: 1.2;
   }
 
-  .contact-details h2,
   .contact-details p {
     margin: 0;
   }
 
-  .contact-details h2 {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    font-weight: 500;
+  .contact-details a {
+    text-decoration: none;
+  }
+
+  .contact-details .reservation-link {
+    text-decoration: underline;
   }
 
   .menu-links {
@@ -212,10 +199,6 @@
 
   @media (max-width: 40rem) {
     .menu-links {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-details {
       grid-template-columns: 1fr;
     }
   }

@@ -3,7 +3,16 @@ import { languages, type Language } from '$lib/i18n/config';
 import { routePath, type RouteKey } from '$lib/i18n/routes';
 import type { EntryGenerator, PageLoad } from './$types';
 
-const contentRoutes: RouteKey[] = ['menu', 'food', 'drinks', 'visit', 'about', 'contact', 'reservations'];
+const contentRoutes: RouteKey[] = [
+  'menu',
+  'food',
+  'drinks',
+  'tasting',
+  'visit',
+  'about',
+  'contact',
+  'reservations'
+];
 
 export const entries: EntryGenerator = () =>
   languages.flatMap((lang) =>

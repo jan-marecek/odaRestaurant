@@ -1,13 +1,23 @@
 import { base } from '$app/paths';
 import type { Language } from './config';
 
-export type RouteKey = 'home' | 'menu' | 'food' | 'drinks' | 'visit' | 'about' | 'contact' | 'reservations';
+export type RouteKey =
+  | 'home'
+  | 'menu'
+  | 'food'
+  | 'drinks'
+  | 'tasting'
+  | 'visit'
+  | 'about'
+  | 'contact'
+  | 'reservations';
 
 const slugs: Record<RouteKey, Record<Language, string>> = {
   home: { cz: '', en: '' },
   menu: { cz: 'menu', en: 'menu' },
   food: { cz: 'stala-nabidka', en: 'food-menu' },
   drinks: { cz: 'napoje', en: 'drinks' },
+  tasting: { cz: 'degustacni-menu', en: 'degustation-menu' },
   visit: { cz: 'navsteva', en: 'visit' },
   about: { cz: 'o-nas', en: 'about' },
   contact: { cz: 'kontakt', en: 'contact' },

@@ -4,28 +4,41 @@
   import { menuContent, type MenuItem } from '$lib/data/menu';
   import type { Language } from '$lib/i18n/config';
 
-  let { lang, kind }: { lang: Language; kind: 'food' | 'drinks' } = $props();
+  let { lang, kind }: { lang: Language; kind: 'food' | 'drinks' | 'tasting' } = $props();
   const menu = $derived(menuContent[lang]);
-  const downloadHref = $derived(`${base}${restaurant.menuDocuments[kind]}`);
+  const downloadHref = $derived(kind === 'tasting' ? '' : `${base}${restaurant.menuDocuments[kind]}`);
   const downloadLabel = $derived(
     lang === 'cz'
       ? kind === 'food'
         ? 'Stáhnout jídelní lístek (PDF)'
-        : 'Stáhnout nápojový lístek (PDF)'
+        : kind === 'drinks'
+          ? 'Stáhnout nápojový lístek (PDF)'
+          : ''
       : kind === 'food'
         ? 'Download food menu (PDF)'
-        : 'Download drinks menu (PDF)'
+        : kind === 'drinks'
+          ? 'Download drinks menu (PDF)'
+          : ''
   );
-  const downloadFilename = $derived(kind === 'food' ? 'oda-jidlo.pdf' : 'oda-napoje.pdf');
+  const downloadFilename = $derived(kind === 'food' ? 'oda-jidlo.pdf' : kind === 'drinks' ? 'oda-napoje.pdf' : '');
 </script>
 
 {#snippet itemRow(item: MenuItem)}
-  <div class:subheading={!item.price && !item.description} class="menu-item">
+  <div class:subheading={!item.price && !item.description} class:tight={item.tight} class="menu-item">
     <div>
       {#if item.name}<h3>{item.name}</h3>{/if}
       {#if item.description}<p>{item.description}</p>{/if}
     </div>
     {#if item.price}<span>{item.price}</span>{/if}
+  </div>
+{/snippet}
+
+{#snippet dishRow(item: MenuItem)}
+  <div class="menu-item">
+    <div>
+      {#if item.name}<h3>{item.name}</h3>{/if}
+      {#if item.description}<p>{item.description}</p>{/if}
+    </div>
   </div>
 {/snippet}
 
@@ -42,7 +55,23 @@
         {@render itemRow(item)}
         {#if index === 10 || index === 12}<div class="menu-space"></div>{/if}
       {/each}
-      {@render itemRow(menu.food.tastingMenu)}
+      {#each menu.food.tastingMenus as item}
+        {@render itemRow(item)}
+      {/each}
+    </div>
+  {:else if kind === 'tasting'}
+    <h1>{menu.tasting.title}</h1>
+    <div class="tasting-list">
+      {#each menu.tasting.courses as course, index}
+        <div class="tasting-course">
+          <span class="course-number">{index + 1}.</span>
+          <div class="course-dishes">
+            {#each course as dish}
+              {@render dishRow(dish)}
+            {/each}
+          </div>
+        </div>
+      {/each}
     </div>
   {:else}
     <h1>{menu.drinks.title}</h1>
@@ -51,10 +80,12 @@
         <div class="drink-column">
           {#each column as section}
             <section class="drink-section">
-              <div class="section-heading">
-                <h2>{section.title}</h2>
-                {#if section.price}<span>{section.price}</span>{/if}
-              </div>
+              {#if section.title}
+                <div class="section-heading">
+                  <h2>{section.title}</h2>
+                  {#if section.price}<span>{section.price}</span>{/if}
+                </div>
+              {/if}
               {#if section.note}<p class="section-note">{section.note}</p>{/if}
               {#each section.items ?? [] as item}
                 {@render itemRow(item)}
@@ -64,6 +95,21 @@
         </div>
       {/each}
     </div>
+
+    <section class="drink-section drink-section--featured">
+      <div class="section-heading">
+        <h2>{menu.drinks.featured.title}</h2>
+      </div>
+      <div class="drink-columns">
+        {#each menu.drinks.featured.columns as items}
+          <div class="drink-column">
+            {#each items as item}
+              {@render itemRow(item)}
+            {/each}
+          </div>
+        {/each}
+      </div>
+    </section>
   {/if}
 
   <!--
@@ -74,9 +120,9 @@
 <style>
   .menu-document {
     width: min(100% - 2rem, 52rem);
-    min-height: 62rem;
-    margin: 2rem auto 5rem;
-    padding: clamp(2rem, 5vw, 4rem);
+    min-height: 56rem;
+    margin: 1rem auto 2rem;
+    padding: clamp(1.33rem, 3.33vw, 2.67rem) clamp(2rem, 5vw, 4rem);
     color: #111;
     background: #fff;
     font-family: 'PP Montreal', Arial, sans-serif;
@@ -131,6 +177,29 @@
     height: 1.25rem;
   }
 
+  .tasting-list {
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .tasting-course {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .course-number {
+    flex-shrink: 0;
+    width: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .course-dishes {
+    flex: 1;
+    min-width: 0;
+  }
+
   .drink-columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -158,6 +227,10 @@
     margin-bottom: 1rem;
   }
 
+  .menu-item.tight {
+    margin-bottom: 0.2rem;
+  }
+
   .drink-section .subheading {
     margin-top: 0.5rem;
   }
@@ -183,7 +256,7 @@
       width: 100%;
       min-height: 0;
       margin: 0;
-      padding: 2rem 1.25rem 2.5rem;
+      padding: 1.33rem 1.25rem 1.67rem;
       box-shadow: none;
     }
 

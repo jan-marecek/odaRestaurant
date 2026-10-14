@@ -10,8 +10,7 @@ const contentRoutes: RouteKey[] = [
   'tasting',
   'visit',
   'about',
-  'contact',
-  'reservations'
+  'contact'
 ];
 
 export const entries: EntryGenerator = () =>

@@ -1,0 +1,12 @@
+/*
+ * Single source of truth for the site's desktop/mobile split.
+ *
+ * The line is 48rem (768px). Use `@media (--mobile)` and `@media (--desktop)`
+ * in component <style> blocks instead of writing pixel values by hand.
+ *
+ * Exception: SiteHeader collapses the nav to a hamburger at 1220px. That is a
+ * "the horizontal nav no longer fits" breakpoint, not a device breakpoint, so
+ * it stays on its own literal value.
+ */
+@custom-media --mobile (max-width: 47.99rem);
+@custom-media --desktop (min-width: 48rem);

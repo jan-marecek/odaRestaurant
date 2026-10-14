@@ -1,4 +1,4 @@
-import type { Language } from '$lib/i18n/config';
+import type { Language } from "$lib/i18n/config";
 
 export type LocalizedText = Record<Language, string>;
 
@@ -13,7 +13,7 @@ export type MenuItem = {
   name: LocalizedText;
   description?: LocalizedText;
   price: number;
-  currency: 'CZK';
+  currency: "CZK";
   allergens?: number[];
   tags?: string[];
 };
@@ -34,12 +34,12 @@ export type Restaurant = {
     street: string;
     city: string;
     postalCode: string;
-    countryCode: 'CZ';
+    countryCode: "CZ";
   };
   coordinates?: { latitude: number; longitude: number };
   openingHours: OpeningHours[];
   priceRange: string;
-  currenciesAccepted: 'CZK';
+  currenciesAccepted: "CZK";
   socialLinks: string[];
   reservationUrl: string;
   voucherUrl: string;
@@ -53,39 +53,39 @@ export type Restaurant = {
 // Jediný zdroj pravdy pro obsah webu a pozdější Restaurant JSON-LD.
 // Kontaktní údaje a menu nahraďte potvrzenými daty restaurace.
 export const restaurant: Restaurant = {
-  name: 'ODA Restaurant',
+  name: "ODA Restaurant",
   description: {
-    cz: 'Místo pro dobré jídlo a společné chvíle.',
-    en: 'A place for good food and time together.'
+    cz: "Místo pro dobré jídlo a společné chvíle.",
+    en: "A place for good food and time together.",
   },
-  email: 'info@odarestaurant.cz',
-  phone: '+420 727 890 014',
+  email: "info@odarestaurant.cz",
+  phone: "+420 727 890 014",
   address: {
-    street: 'Chrudimská 5',
-    city: 'Praha 3',
-    postalCode: '130 00',
-    countryCode: 'CZ'
+    street: "Chrudimská 5",
+    city: "Praha 3",
+    postalCode: "130 00",
+    countryCode: "CZ",
   },
   openingHours: [
     {
-      days: { cz: 'Út-Pá', en: 'Tu-Fr' },
-      opens: '16:00',
-      closes: '23:00'
+      days: { cz: "Út-Pá", en: "Tu-Fr" },
+      opens: "16:00",
+      closes: "23:00",
     },
     {
-      days: { cz: 'So', en: 'Sa' },
-      opens: '12:00',
-      closes: '23:00'
-    }
+      days: { cz: "So", en: "Sa" },
+      opens: "12:00",
+      closes: "23:00",
+    },
   ],
-  priceRange: '$$',
-  currenciesAccepted: 'CZK',
-  socialLinks: ['https://www.instagram.com/oda.prague/'],
-  reservationUrl: 'https://app.tableo.com/r/-lqbXCq',
-  voucherUrl: 'https://www.smartvoucher.cz/podnik/oda',
+  priceRange: "$$",
+  currenciesAccepted: "CZK",
+  socialLinks: ["https://www.instagram.com/oda.prague/"],
+  reservationUrl: "https://app.tableo.com/r/-lqbXCq",
+  voucherUrl: "https://www.smartvoucher.cz/podnik/oda",
   menuDocuments: {
-    food: '/menu/jidlo.pdf',
-    drinks: '/menu/napoje.pdf'
+    food: "/menu/jidlo.pdf",
+    drinks: "/menu/napoje.pdf",
   },
-  menu: []
+  menu: [],
 };

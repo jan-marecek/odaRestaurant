@@ -59,9 +59,11 @@
     left: 0;
     display: flex;
     width: 100%;
+    height: var(--header-height);
+    align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    padding: 8px;
+    padding: 0 8px;
     background: #ff5500;
     color: #000;
     font-family: 'PP Montreal', Arial, sans-serif;
@@ -94,7 +96,9 @@
 
   .language-link {
     position: absolute;
+    top: 50%;
     right: 8px;
+    transform: translateY(-50%);
   }
 
   .mobile-menu-toggle,
@@ -102,6 +106,10 @@
     display: none;
   }
 
+  /*
+   * Not the site breakpoint (see src/breakpoints.css, 48rem). The nav
+   * collapses when the horizontal links stop fitting, which is 1220px.
+   */
   @media (min-width: 1221px) {
     .top-menu {
       padding-left: 10px;
@@ -122,22 +130,36 @@
       cursor: pointer;
     }
 
+    /*
+     * The overlay matches the subpages: same gray, same type scale
+     * (40px / 32px below the breakpoint), 8px gutter. The orange bar above
+     * it keeps its own 18px.
+     *
+     * Leading is 1.09, not the 1 the body copy uses -- the mockup measures a
+     * 34.93px baseline pitch on 32px type, so the nav sits slightly looser.
+     */
     .mobile-overlay {
       position: fixed;
       z-index: 900;
       inset: 0;
-      padding: 45px 8px 8px;
-      background: #bdbdbd;
+      padding: calc(var(--header-height) + 8px + 0.05em) 8px calc(8px + 0.05em);
+      background: #d9d9d9;
       color: #000;
       font-family: 'PP Montreal', Arial, sans-serif;
-      font-size: var(--menu-font-size);
-      line-height: 1.2;
+      font-size: 40px;
+      line-height: 1.1;
       text-transform: lowercase;
       -webkit-font-smoothing: antialiased;
     }
 
     .menu-open .mobile-overlay {
       display: block;
+    }
+  }
+
+  @media (--mobile) {
+    .mobile-overlay {
+      font-size: 32px;
     }
   }
 </style>

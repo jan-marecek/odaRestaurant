@@ -13,9 +13,7 @@ const validSlugs = new Set([
   'o-nas',
   'about',
   'kontakt',
-  'contact',
-  'rezervace',
-  'reservations'
+  'contact'
 ]);
 
 export const match: ParamMatcher = (param) => validSlugs.has(param);

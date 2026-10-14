@@ -9,8 +9,7 @@ export type RouteKey =
   | 'tasting'
   | 'visit'
   | 'about'
-  | 'contact'
-  | 'reservations';
+  | 'contact';
 
 const slugs: Record<RouteKey, Record<Language, string>> = {
   home: { cz: '', en: '' },
@@ -20,8 +19,7 @@ const slugs: Record<RouteKey, Record<Language, string>> = {
   tasting: { cz: 'degustacni-menu', en: 'degustation-menu' },
   visit: { cz: 'navsteva', en: 'visit' },
   about: { cz: 'o-nas', en: 'about' },
-  contact: { cz: 'kontakt', en: 'contact' },
-  reservations: { cz: 'rezervace', en: 'reservations' }
+  contact: { cz: 'kontakt', en: 'contact' }
 };
 
 export function routePath(language: Language, route: RouteKey): string {

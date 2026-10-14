@@ -251,13 +251,16 @@
     line-height: 1.25;
   }
 
-  @media (max-width: 42rem) {
+  @media (--mobile) {
+    /*
+     * Below the breakpoint the card drops its document inset and the menu
+     * text sits on the same 8px gutter as every other subpage.
+     */
     .menu-document {
       width: 100%;
       min-height: 0;
       margin: 0;
-      padding: 1.33rem 1.25rem 1.67rem;
-      box-shadow: none;
+      padding: 1.33rem 8px 1.67rem;
     }
 
     .drink-columns {

@@ -1,6 +1,7 @@
 <script lang="ts">
   import PageIntro from '$lib/components/PageIntro.svelte';
   import MenuDocument from '$lib/components/MenuDocument.svelte';
+  import Accordion from '$lib/components/Accordion.svelte';
   import { content } from '$lib/data/content';
   import { restaurant } from '$lib/data/restaurant';
   import type { Language } from '$lib/i18n/config';
@@ -13,6 +14,27 @@
   const addressCity = $derived(lang === 'cz' ? restaurant.address.city : 'Prague 3');
   const mapsUrl = 'https://www.google.com/maps/place/Oda/@50.0774881,14.4594925,17z/data=!3m1!4b1!4m6!3m5!1s0x470b93558b172d03:0x86069953c93f77d4!8m2!3d50.0774881!4d14.4620674!16s%2Fg%2F11xtcrfkh2?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D';
   const phoneUrl = $derived(`tel:${restaurant.phone.replace(/\s/g, '')}`);
+
+  // The visit page splits its content in two: the untitled section is the
+  // intro prose, every titled one becomes an accordion row.
+  const visitSections = $derived(copy.reservationInfo?.sections ?? []);
+  const visitIntro = $derived(
+    visitSections.filter((section) => !section.title).flatMap((section) => section.paragraphs ?? [])
+  );
+  const visitPanels = $derived(
+    visitSections
+      .filter((section) => section.title)
+      .map((section) => ({
+        title: section.title as string,
+        paragraphs: section.paragraphs ?? (section.text ? [section.text] : []),
+        href: section.reservationLink
+          ? restaurant.reservationUrl
+          : section.link
+            ? routePath(lang, section.link)
+            : undefined,
+        external: Boolean(section.reservationLink)
+      }))
+  );
 </script>
 
 <svelte:head>
@@ -28,32 +50,12 @@
     <MenuDocument kind={data.route} {lang} />
   {:else if data.route === 'visit'}
     <div class="visit-content">
-      {#if copy.reservationInfo}
-        <section class="reservation-info">
-          {#each copy.reservationInfo.sections as section}
-            <section>
-              {#if section.title}
-                <h2>
-                  {#if section.reservationLink}
-                    <a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{section.title}</a>
-                  {:else if section.link}
-                    <a href={routePath(lang, section.link)}>{section.title}</a>
-                  {:else}
-                    {section.title}
-                  {/if}
-                </h2>
-              {/if}
-              {#if section.paragraphs}
-                {#each section.paragraphs as paragraph}<p>{paragraph}</p>{/each}
-              {:else}
-                <p>
-                  {section.text}{#if section.email}<a href={`mailto:${section.email}`}>{section.email}</a>{/if}{section.suffix ?? ''}
-                </p>
-              {/if}
-            </section>
-          {/each}
-          {#if copy.reservationInfo.closing}<p class="reservation-closing">{copy.reservationInfo.closing}</p>{/if}
-        </section>
+      {#each visitIntro as paragraph}
+        <p class="visit-intro">{paragraph}</p>
+      {/each}
+      <Accordion items={visitPanels} />
+      {#if copy.reservationInfo?.closing}
+        <p class="reservation-closing">{copy.reservationInfo.closing}</p>
       {/if}
     </div>
   {:else if data.route === 'about'}
@@ -76,7 +78,7 @@
       {#if restaurant.email}<p><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></p>{/if}
       <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
       <br />
-      <p><a class="reservation-link" target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
+      <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>
     </address>
   {:else}
     <PageIntro title={copy.title} intro={copy.intro} />
@@ -101,77 +103,99 @@
 
   .gray-page {
     min-height: 100vh;
-    margin-top: -2.5rem;
-    padding-top: 2.5rem;
+    margin-top: calc(-1 * var(--header-height));
+    padding-top: var(--header-height);
     overflow: auto;
-    background: #bdbdbd;
+    background: #d9d9d9;
   }
 
   .white-page {
     background: #fff;
   }
 
-  .visit-content {
-    padding: 8px;
-    font-size: 28px;
-    line-height: 1.2;
+  /*
+   * Subpage body copy (visit / about / contact). Measured off the design
+   * mockups: 40px desktop, 32px mobile, line-height 1, and exactly one blank
+   * line between paragraphs. Paragraph spacing is in em so it tracks the
+   * font size across the breakpoint.
+   *
+   * On desktop the copy runs to half the page width; on mobile it is full
+   * width. This is the only place the measure is set -- don't add max-width
+   * to the inner wrappers.
+   */
+  .visit-content,
+  .about-copy,
+  .contact-details {
+    /*
+     * The font's content area is 1.2em (ascent .958 + descent .242) but
+     * line-height is 1, so the glyphs overhang the line box by 0.1em top and
+     * bottom. Add that back to the vertical padding, otherwise an accented
+     * capital like "Ó" eats half the gap and 8px reads as 4px.
+     */
+    padding: calc(8px + 0.1em) 8px;
+    font-size: 40px;
+    line-height: 1;
   }
 
-  .reservation-info {
-    max-width: 70rem;
+  @media (--desktop) {
+    /*
+     * 50vw, not 50%. Viewport units ignore the scrollbar, so the measure is
+     * identical whether or not the page scrolls. With % the column lost half
+     * the scrollbar's width the moment an accordion panel opened, which
+     * rewrapped the copy above it.
+     */
+    .visit-content,
+    .about-copy,
+    .contact-details {
+      max-width: 50vw;
+    }
   }
 
-  .reservation-info p {
-    margin: 0;
+  @media (--mobile) {
+    .visit-content,
+    .about-copy,
+    .contact-details {
+      font-size: 32px;
+    }
+  }
+
+  .visit-intro {
+    margin: 0 0 1em;
     font: inherit;
-  }
-
-  .reservation-info h2 {
-    margin: 3rem 0 0.5rem;
-    font: inherit;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-
-  .reservation-info section {
-    margin-bottom: 1rem;
-  }
-
-  .reservation-info section p + p {
-    margin-top: 1rem;
   }
 
   .reservation-closing {
-    margin-top: 1.5rem;
-  }
-
-  .about-copy {
-    max-width: 64rem;
-    padding: 8px;
-    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
-    line-height: 1.2;
+    margin: 1em 0 0;
+    font: inherit;
   }
 
   .about-copy p {
-    margin: 0 0 1.2em;
+    margin: 0 0 1em;
+  }
+
+  .about-copy p:last-child {
+    margin-bottom: 0;
   }
 
   .contact-details {
-    padding: 8px;
     font-style: normal;
-    font-size: 28px;
-    line-height: 1.2;
   }
 
   .contact-details p {
     margin: 0;
   }
 
+  /*
+   * Links on the gray subpages sit flush in the copy and only underline on
+   * hover. :focus-visible is included because a keyboard user otherwise has
+   * no way to tell a link from the text around it.
+   */
   .contact-details a {
     text-decoration: none;
   }
 
-  .contact-details .reservation-link {
+  .contact-details a:hover,
+  .contact-details a:focus-visible {
     text-decoration: underline;
   }
 
@@ -197,7 +221,7 @@
     background: #1f211d;
   }
 
-  @media (max-width: 40rem) {
+  @media (--mobile) {
     .menu-links {
       grid-template-columns: 1fr;
     }

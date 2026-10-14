@@ -252,7 +252,7 @@ export const content: Record<Language, Translation> = {
       language: "Language",
       address: "Address",
       openingHours: "Opening hours",
-      closedDays: "Sunday–Monday: closed",
+      closedDays: "Su–Mo closed",
       menuComingSoon: "Menu items will be added soon.",
       foodMenu: "Food menu",
       drinks: "Drinks",

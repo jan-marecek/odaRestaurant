@@ -66,8 +66,12 @@
     </section>
   {:else if data.route === 'contact'}
     <address class="contact-details">
-      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.street}</a></p>
-      <p><a target="_blank" rel="noreferrer" href={mapsUrl}>{restaurant.address.postalCode}, {addressCity}</a></p>
+      <!-- One address, one destination: a single link so hovering either line underlines both. -->
+      <p>
+        <a target="_blank" rel="noreferrer" href={mapsUrl}
+          >{restaurant.address.street}<br />{restaurant.address.postalCode}, {addressCity}</a
+        >
+      </p>
       <br />
       {#each restaurant.openingHours as hours}
         <p>{hours.days[lang]} {hours.opens.slice(0, 2)}-{hours.closes.slice(0, 2)}</p>

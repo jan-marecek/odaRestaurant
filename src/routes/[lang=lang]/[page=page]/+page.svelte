@@ -48,7 +48,6 @@
 
 <div
   class:gray-page={data.route === 'food' || data.route === 'drinks' || data.route === 'tasting' || data.route === 'visit' || data.route === 'about' || data.route === 'contact'}
-  class:white-page={data.route === 'food' || data.route === 'drinks' || data.route === 'tasting'}
 >
   {#if data.route === 'food' || data.route === 'drinks' || data.route === 'tasting'}
     <MenuDocument kind={data.route} {lang} />
@@ -117,10 +116,6 @@
     padding-top: var(--header-height);
     overflow: auto;
     background: #d9d9d9;
-  }
-
-  .white-page {
-    background: #fff;
   }
 
   /*

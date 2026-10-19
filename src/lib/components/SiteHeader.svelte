@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import { content } from '$lib/data/content';
   import { restaurant } from '$lib/data/restaurant';
@@ -11,6 +12,19 @@
   const copy = $derived(content[lang].common);
   const navigation = $derived(content[lang].navigation);
   const otherLanguage = $derived(lang === 'cz' ? 'en' : 'cz');
+
+  // Closing the overlay takes the reader to the homepage rather than back to
+  // the page they opened it from. Kept as a button rather than a link so it
+  // keeps the toggle's styling and its aria-expanded state -- the control
+  // only exists once the overlay has been opened, which already needs JS.
+  function toggleMenu() {
+    if (!menuOpen) {
+      menuOpen = true;
+      return;
+    }
+    menuOpen = false;
+    goto(routePath(lang, 'home'));
+  }
 </script>
 
 <svelte:window onkeydown={(event) => event.key === 'Escape' && (menuOpen = false)} />
@@ -32,7 +46,7 @@
       type="button"
       aria-expanded={menuOpen}
       aria-controls="mobile-menu"
-      onclick={() => (menuOpen = !menuOpen)}
+      onclick={toggleMenu}
     >{menuOpen ? copy.menuClose : copy.menuOpen}</button>
   </nav>
 

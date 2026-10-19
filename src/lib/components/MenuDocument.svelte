@@ -43,11 +43,6 @@
 {/snippet}
 
 <article class="menu-document">
-  <svg class="menu-logo" aria-hidden="true" viewBox="-4 7 201 279">
-    <path d="M96.53,73.36C36.29,73.36,0,116.22,0,177.62s36.29,104.25,96.53,104.25,96.14-42.86,96.14-104.25-36.29-104.25-96.14-104.25ZM96.53,254.84c-44.4,0-64.1-35.14-64.1-77.22s19.69-77.22,64.1-77.22,63.71,35.14,63.71,77.22-19.69,77.22-63.71,77.22Z" />
-    <rect x="22.63" y="26.64" width="144.84" height="27.03" transform="translate(-3.36 9.13) rotate(-5.4)" />
-  </svg>
-
   {#if kind === 'food'}
     <h1>{menu.food.title}</h1>
     <div class="food-list">
@@ -118,21 +113,17 @@
 </article>
 
 <style>
+  /*
+   * Not a centred white card any more: the menu sits flush left at the top
+   * of the gray page, on the same 8px gutter as the other subpages. It keeps
+   * its own 52rem measure and its own type scale.
+   */
   .menu-document {
-    width: min(100% - 2rem, 52rem);
-    min-height: 56rem;
-    margin: 1rem auto 2rem;
-    padding: clamp(1.33rem, 3.33vw, 2.67rem) clamp(2rem, 5vw, 4rem);
-    color: #111;
-    background: #fff;
-    font-family: 'PP Montreal', Arial, sans-serif;
-  }
-
-  .menu-logo {
     display: block;
-    width: 3.25rem;
-    margin: 0 auto 1.5rem;
-    fill: #000;
+    max-width: 52rem;
+    padding: 8px;
+    color: #111;
+    font-family: 'PP Montreal', Arial, sans-serif;
   }
 
   h1,
@@ -182,10 +173,14 @@
     margin-top: 2rem;
   }
 
+  /*
+   * No extra gap between courses: the trailing .menu-item margin already
+   * gives the same 1.2rem rhythm the food and drinks menus use, and the
+   * course number is what marks the grouping.
+   */
   .tasting-course {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
   }
 
   .course-number {
@@ -252,17 +247,6 @@
   }
 
   @media (--mobile) {
-    /*
-     * Below the breakpoint the card drops its document inset and the menu
-     * text sits on the same 8px gutter as every other subpage.
-     */
-    .menu-document {
-      width: 100%;
-      min-height: 0;
-      margin: 0;
-      padding: 1.33rem 8px 1.67rem;
-    }
-
     .drink-columns {
       grid-template-columns: 1fr;
       gap: 0;

@@ -6,6 +6,7 @@
   import { restaurant } from '$lib/data/restaurant';
   import type { Language } from '$lib/i18n/config';
   import { routePath } from '$lib/i18n/routes';
+  import { bindSingleLetters } from '$lib/i18n/typography';
 
   let { data } = $props();
   const lang = $derived(data.lang as Language);
@@ -19,14 +20,17 @@
   // intro prose, every titled one becomes an accordion row.
   const visitSections = $derived(copy.reservationInfo?.sections ?? []);
   const visitIntro = $derived(
-    visitSections.filter((section) => !section.title).flatMap((section) => section.paragraphs ?? [])
+    visitSections
+      .filter((section) => !section.title)
+      .flatMap((section) => section.paragraphs ?? [])
+      .map(bindSingleLetters)
   );
   const visitPanels = $derived(
     visitSections
       .filter((section) => section.title)
       .map((section) => ({
-        title: section.title as string,
-        paragraphs: section.paragraphs ?? (section.text ? [section.text] : []),
+        title: bindSingleLetters(section.title as string),
+        paragraphs: (section.paragraphs ?? (section.text ? [section.text] : [])).map(bindSingleLetters),
         href: section.reservationLink
           ? restaurant.reservationUrl
           : section.link
@@ -55,13 +59,13 @@
       {/each}
       <Accordion items={visitPanels} />
       {#if copy.reservationInfo?.closing}
-        <p class="reservation-closing">{copy.reservationInfo.closing}</p>
+        <p class="reservation-closing">{bindSingleLetters(copy.reservationInfo.closing)}</p>
       {/if}
     </div>
   {:else if data.route === 'about'}
     <section class="about-copy">
       {#each copy.body ?? [] as paragraph}
-        <p>{paragraph}</p>
+        <p>{bindSingleLetters(paragraph)}</p>
       {/each}
     </section>
   {:else if data.route === 'contact'}
@@ -79,7 +83,9 @@
       <p>{t.common.closedDays}</p>
       <br />
       <p><a href={phoneUrl}>{restaurant.phone}</a></p>
-      {#if restaurant.email}<p><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></p>{/if}
+      <!-- Paired with the commented-out email in restaurant.ts; uncomment both to restore.
+      <p><a href={`mailto:${restaurant.email}`}>{restaurant.email}</a></p>
+      -->
       <p><a target="_blank" rel="noreferrer" href={restaurant.socialLinks[0]}>@oda.prague</a></p>
       <br />
       <p><a target="_blank" rel="noreferrer" href={restaurant.reservationUrl}>{t.common.reservation}</a></p>

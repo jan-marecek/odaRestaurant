@@ -19,7 +19,7 @@
     <details class="accordion-item">
       <summary>
         <span>{item.title}</span>
-        <span class="accordion-arrow" aria-hidden="true">↓</span>
+        <span class="accordion-arrow" aria-hidden="true"></span>
       </summary>
       <div class="accordion-panel">
         {#each item.paragraphs ?? [] as paragraph}
@@ -46,16 +46,13 @@
    * 0.1em half-leading compensation as the rest of the subpages, so the
    * gap between a rule and the text next to it reads as a true 8px.
    */
-  .accordion-item {
-    border-bottom: 1px solid;
-  }
-
   summary {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 1em;
     padding: calc(8px + 0.1em) 0;
+    border-bottom: 1px solid;
     cursor: pointer;
     list-style: none;
     -webkit-user-select: none;
@@ -82,16 +79,27 @@
   }
 
   .accordion-arrow {
-    display: inline-block;
     flex-shrink: 0;
   }
 
-  details[open] .accordion-arrow {
-    transform: rotate(180deg);
+  /* Two glyphs swapped outright -- no rotation, no transition. */
+  .accordion-arrow::before {
+    content: '↓';
   }
 
+  details[open] .accordion-arrow::before {
+    content: '↑';
+  }
+
+  /*
+   * Panel copy is 20px in both views -- half the title on desktop, and
+   * deliberately not scaled down on mobile where the title drops to 32px.
+   * line-height 1, one blank line between paragraphs. Padding is in em, so
+   * it is measured in panel lines rather than title lines.
+   */
   .accordion-panel {
-    padding-bottom: calc(8px + 0.1em);
+    padding: 0.8em 0 1.5em;
+    font-size: 20px;
   }
 
   .accordion-panel p {
@@ -110,11 +118,5 @@
   .accordion-link a:hover,
   .accordion-link a:focus-visible {
     text-decoration: underline;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .accordion-arrow {
-      transition: transform 150ms ease;
-    }
   }
 </style>

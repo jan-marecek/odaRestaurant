@@ -4,7 +4,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="%sveltekit.assets%/images/favicon.svg" type="image/svg+xml" />
+    <!--
+      Preloaded so the fetch starts with the HTML rather than after the CSS
+      has parsed and laid out. Without it the browser only discovers the font
+      once it needs it, and font-display: swap then paints the whole page in
+      Arial first -- which is 5.8% wider and a shorter box than PP Montreal,
+      so every line rewraps and the hand-tuned 0.1em padding reads wrong
+      until the swap lands. crossorigin is required even same-origin, or the
+      preload is discarded and the font is fetched twice.
+    -->
+    <link
+      rel="preload"
+      href="%sveltekit.assets%/fonts/PPNeueMontreal-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <style>
+      /*
+       * Height of the fixed orange bar. Pinned rather than left to the
+       * font's metrics so the 8px gap below it is exact: every page and the
+       * nav overlay space themselves off this value.
+       *
+       * It lives here, in the document shell, rather than in a route's
+       * <style> block because SiteHeader is mounted from two places that do
+       * NOT share a layout: the localised pages under [lang], and the root /
+       * homepage. A route-scoped declaration is only in the bundle of the
+       * route that declares it, so on / the variable was simply absent --
+       * which silently collapsed the bar to 22px and, because an invalid
+       * var() poisons the whole shorthand, zeroed the nav overlay's padding
+       * until a link hover made SvelteKit preload a [lang] route and inject
+       * its CSS.
+       */
+      :root {
+        --header-height: 40px;
+      }
+
       @font-face {
         font-family: 'PP Montreal';
         src:

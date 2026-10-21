@@ -1,4 +1,4 @@
-import type { Language } from '$lib/i18n/config';
+import type { Language } from "$lib/i18n/config";
 
 export type MenuItem = {
   name: string;
@@ -37,264 +37,413 @@ type MenuContent = {
 export const menuContent: Record<Language, MenuContent> = {
   cz: {
     food: {
-      title: 'Jídlo',
+      title: "Jídlo",
       items: [
-        { name: 'Chleba', description: 'Hrášek, Škraloup', price: 165 },
-        { name: 'Rajčatový salát', price: 235 },
-        { name: 'Ryb - íz', description: 'Siven, Rybíz, Letní byliny', price: 380 },
-        { name: 'Celý květák', description: 'Žloutek, Falešný řízek', price: 240 },
-        { name: 'Grilovaná cuketa', description: 'Lískový ořech, Koření', price: 215 },
-        { name: 'Broskev bez kuřete', description: 'Blaťácké zlato, Kuřecí kůže', price: 285 },
-        { name: 'Palačinka s kukuřicí', description: 'Máslo, Popcorn miso', price: 240 },
-        { name: 'Úhoř', description: 'Švestka, Jikry', price: 395 },
-        { name: 'Vepřový párek', description: 'Fenykl, Hořčice', price: 295 },
-        { name: 'Vietnamský špenát', description: 'Maggi, Šalotka, Česnek', price: 165 },
-        { name: 'Hovězí na dvakrát', description: 'Morek, Garum', price: 450 },
-        { name: 'Angrešt', price: 185 },
-        { name: 'Knedlíkové ovoce', description: 'Tvaroh, Hnědé máslo', price: 285 }
+        { name: "Chleba", description: "Rajčatové máslo", price: 180 },
+        { name: "Mrkvový salát s jablkem", price: 175 },
+        {
+          name: "Candát",
+          description: "Česnekové výhonky, Ocet z Fernetu Citrus, Libeček",
+          price: 380,
+        },
+        {
+          name: "Houby a Kroupy",
+          description: "Černý česnek, Majoránka",
+          price: 275,
+        },
+        {
+          name: "Kanec a Šípek",
+          description: "Tatarák z kýty, Grilovaný bok",
+          price: 345,
+        },
+        {
+          name: "Misozuke",
+          description: "Dýně, Ocet z Becherovky, Dýňové miso",
+          price: 165,
+        },
+        {
+          name: "Rybí palačinka",
+          description: "Siven, Jikry, Mlíčí",
+          price: 295,
+        },
+        {
+          name: "Kachna",
+          description: "Droby, Stehno, Červené zelí",
+          price: 365,
+        },
+        {
+          name: "Podzimní grilovaná zelenina",
+          description: "Jablečné kosho",
+          price: 195,
+        },
+        {
+          name: "Hovězí",
+          description: "Jazyk, Loupaná plec, Křen",
+          price: 430,
+        },
+        {
+          name: "Žlutá řepa",
+          description: "Svařák, Zakysaná smetana",
+          price: 185,
+        },
+        { name: "Buchty", description: "Vlašský ořech, Vaječňák", price: 285 },
       ],
       tastingMenus: [
-        { name: 'Menší Hostina', price: 1800 },
-        { name: 'Větší Hostina', description: '(informace o párování vám poskytne náš tým)', price: 2250 }
-      ]
+        { name: "Menší Hostina", price: 1800 },
+        {
+          name: "Větší Hostina",
+          description: "(informace o párování vám poskytne náš tým)",
+          price: 2250,
+        },
+      ],
     },
     drinks: {
-      title: 'Nápoje',
+      title: "Nápoje",
       columns: [
         [
           {
-            title: 'Nealko',
+            title: "Nealko",
             items: [
-              { name: 'Filtrovaná voda / soda', price: 39 },
-              { name: 'Kombucha JZT', price: 95, tight: true },
-              { name: 'Jahodová Cream Soda', price: 105, tight: true },
-              { name: 'Vinea z červených hroznů', price: 85 }
-            ]
+              { name: "Filtrovaná voda / soda", price: 39 },
+              { name: "Kombucha JZT", price: 105, tight: true },
+              { name: "Kaštanová Cream Soda", price: 115, tight: true },
+              { name: "Šípkový ledový čaj", price: 95 },
+            ],
           },
-          { title: 'Čepované Pivo', price: 89 }
+          { title: "Čepované Pivo", price: 89 },
         ],
         [
           {
-            title: 'Nealkoholické Koktejly',
+            title: "Nealkoholické Koktejly",
             items: [
-              { name: 'Straight Edge X', description: 'Ne - aperitivo, Decaf, Višně', price: 205 },
               {
-                name: 'The Worst Cocktail Ever a.k.a. Malý Slaný Drahý',
-                description: 'Nealko Agave destilát, Lakto-ferment jahody, Calpico',
-                price: 215
+                name: "KSN #2",
+                description: "Ne - aperitivo, Rakytník",
+                price: 205,
               },
-              { name: 'Zdrženlivý nestřik', description: 'Ibiškový nealko spirit, Vinea, Soda', price: 195 }
-            ]
-          }
-        ]
+              {
+                name: "Non - Negroni",
+                description: "Náš nealko Vermouth, Byliny",
+                price: 215,
+              },
+              {
+                name: "Sober Paloma",
+                description: "Nealko Agave destilát, Grapefruit, Sůl, Pepř",
+                price: 220,
+              },
+            ],
+          },
+        ],
       ],
       featured: {
-        title: 'Alkoholické Koktejly',
+        title: "Alkoholické Koktejly",
         columns: [
           [
-            { name: 'InCidre Martini', description: 'Calvados, Pommeau, Cidre oxymel', price: 235 },
             {
-              name: 'Teoreticky Americano #3',
-              description: 'Bitter, Sweet Vermouth, Amaro, Kombucha',
-              price: 225
+              name: "Forest Mezcal",
+              description: "Mezcal, Vermouth bianco, Sherry fino, Celer, Smrk",
+              price: 235,
             },
-            { name: 'Letní Negroni', description: 'Vermouth blend, Gin blend, Rubby Pampelle', price: 235 },
             {
-              name: 'Cherry Sherry Sangria',
-              description: 'Sherry blend, Cherry hiring, Višňový shrub, Bobkový list',
-              price: 235
+              name: "Cosmopolitan ?",
+              description: "Vodka, Citronový olej, Aronie",
+              price: 245,
             },
-            { name: 'N - Zoni', description: 'Gin, Campari, Hroznové víno, Šalvěj', price: 245 },
             {
-              name: 'Tea Punch Malina',
-              description: 'Agricole, Aperol, Amontillado, Malina, Růžový pepř, Čaj z malinových listů',
-              price: 240
-            }
+              name: "Vin VIn High",
+              description:
+                "Pisco, Vermouth, Champagne cordial, Máta, Hroznové víno, Rozinky",
+              price: 250,
+            },
+            {
+              name: "Goodbye Summer Negroni",
+              description:
+                "Vermouth blend, Gin blend, Rubby Pampelle, Grapefruit",
+              price: 245,
+            },
+            {
+              name: "Homemade Lemonade",
+              description: "Aquavit, Gin, Grapefruit³, Kmín",
+              price: 255,
+            },
+            {
+              name: "London Fog a.k.a. Autumn Highball",
+              description: "Cognac, Máslo, Kaštan, Černý čaj s mlékem",
+              price: 260,
+            },
           ],
           [
             {
-              name: 'Strawberry Cream Paloma',
-              description: 'Tequila blanco & cristalino, Champagne cordial, Jahody, Calpico',
-              price: 255
+              name: "InCidre Martini",
+              description: "Calvados, Pommeau, Cidre oxymel",
+              price: 235,
             },
             {
-              name: 'Vini Bitch',
-              description: 'Vodka, Lillet rosé, Vinea z hroznového vína, vinný ocet',
-              price: 235
+              name: "Autumn Paper Plane",
+              description: "Bourbon, Aperol, Amaro Nonino, Rakytník",
+              price: 245,
             },
             {
-              name: 'Jakoby Whiskey Sour',
-              description: 'Burbon, Meruňka, Citron, Heřmánek, Bílek',
-              price: 255
-            },
-            { name: 'OrDinAry Maid', description: 'Whisky, Bezinka, Okurka, Máta', price: 245 },
-            {
-              name: 'ASAP',
-              description: 'Pisco, Vermouth dry, Gran Moravia, Angrešt, Sherry fino, Verjus, Sýrový Garum',
-              price: 245
+              name: "Something instead of Whiskey Sour",
+              description:
+                "Whisky, Umeshu likér, Švestka ume, Hojicha, Mléčná pěna",
+              price: 255,
             },
             {
-              name: 'Téměř bezkofeinové Martini',
-              description: 'Reposado Tequila, Cognac V.S., Kávový likér, Decaf, Ostružinová grenadina, Kakao',
-              price: 245
-            }
-          ]
-        ]
-      }
+              name: "Hazelnut Cappuccino",
+              description:
+                "Rum blend, Káva, Kořeněná mandle, Lískový orgeat, Miso",
+              price: 240,
+            },
+            {
+              name: "Amaro Tonic",
+              description: "Amaro, Vodní kefír tonic",
+              price: 235,
+            },
+            {
+              name: "Charlie Chaplin Long Version",
+              description: "Sloe Gin, Meruňkové brandy, Mandle, Šípek",
+              price: 245,
+            },
+          ],
+        ],
+      },
     },
     tasting: {
-      title: 'Degustační menu',
+      title: "Degustační menu",
       courses: [
-        [{ name: 'Ryb - íz', description: 'Siven, Rybíz, Letní byliny' }],
+        [{ name: "Ryb - íz", description: "Siven, Rybíz, Letní byliny" }],
         [
-          { name: 'Palačinka', description: 'Máslo, Popcorn miso' },
-          { name: 'Rajčatový salát' }
+          { name: "Palačinka", description: "Máslo, Popcorn miso" },
+          { name: "Rajčatový salát" },
         ],
-        [{ name: 'Celý květák', description: 'Žloutek, Falešný řízek' }],
-        [{ name: 'Broskev bez kuřete', description: 'Blaťácké zlato, Kuřecí kůže' }],
+        [{ name: "Celý květák", description: "Žloutek, Falešný řízek" }],
         [
-          { name: 'Párek', description: 'Fenykl, Hořčice' },
-          { name: 'Grilovaná cuketa', description: 'Lískový ořech, koření' }
+          {
+            name: "Broskev bez kuřete",
+            description: "Blaťácké zlato, Kuřecí kůže",
+          },
         ],
         [
-          { name: 'Chleba', description: 'Hrášek, Škraloup' },
-          { name: 'Hovězí na dvakrát', description: 'Morek, Garum' },
-          { name: 'Vietnamese spinach', description: 'Maggi, šalotka, česnek' }
+          { name: "Párek", description: "Fenykl, Hořčice" },
+          { name: "Grilovaná cuketa", description: "Lískový ořech, koření" },
         ],
-        [{ name: 'Angrešt' }],
-        [{ name: 'Knedlíkové ovoce', description: 'Tvaroh, hnědé máslo' }]
-      ]
-    }
+        [
+          { name: "Chleba", description: "Hrášek, Škraloup" },
+          { name: "Hovězí na dvakrát", description: "Morek, Garum" },
+          { name: "Vietnamese spinach", description: "Maggi, šalotka, česnek" },
+        ],
+        [{ name: "Angrešt" }],
+        [{ name: "Knedlíkové ovoce", description: "Tvaroh, hnědé máslo" }],
+      ],
+    },
   },
   en: {
     food: {
-      title: 'Food',
+      title: "Food",
       items: [
-        { name: 'Bread', description: 'Green peas, Kaymak', price: 165 },
-        { name: 'Tomato salad', price: 235 },
-        { name: 'Arctic char', description: 'Red currant, Summer herbs', price: 380 },
-        { name: 'Whole cauliflower', description: 'Egg yolk, Meatless schnitzel', price: 240 },
-        { name: 'Grilled courgette', description: 'Hazelnut, Spices', price: 215 },
-        { name: 'Chicken peach', description: 'Blaťácké zlato cheese, Chicken skin', price: 285 },
-        { name: 'Corn pancake', description: 'Butter, Popcorn miso', price: 240 },
-        { name: 'Eel', description: 'Plum, Fish roe', price: 395 },
-        { name: 'Pork sausage', description: 'Fennel, Mustard', price: 295 },
-        { name: 'Vietnamese spinach', description: 'Maggi, Shallots, Garlic', price: 165 },
-        { name: 'Beef two ways', description: 'Bone marrow, Garum', price: 450 },
-        { name: 'Gooseberry', price: 185 },
-        { name: 'Summer fruits', description: 'Tvaroh, Brown butter', price: 285 }
+        { name: "Onion Bread", description: "Tomato butter", price: 180 },
+        { name: "Carrot salad with apples", price: 175 },
+        {
+          name: "Pike Perch",
+          description: "Garlic shoots, Fernet Citrus vinegar, Lovage",
+          price: 380,
+        },
+        {
+          name: "Mushrooms & Barley",
+          description: "Black garlic, Marjoram",
+          price: 275,
+        },
+        {
+          name: "Wild Boar & Rosehip",
+          description: "Tartare, Grilled belly",
+          price: 345,
+        },
+        {
+          name: "Misozuke",
+          description: "Pumpkin, Becherovka vinegar, Pumpkin miso",
+          price: 165,
+        },
+        {
+          name: "Fish Pancake",
+          description: "Arctic char, Roe, Milt",
+          price: 295,
+        },
+        { name: "Duck", description: "Offal, Thigh, Red cabbage", price: 365 },
+        {
+          name: "Grilled Autumn Veggies",
+          description: "Apple kosho",
+          price: 195,
+        },
+        {
+          name: "Beef",
+          description: "Tongue, Flat iron, Horseradish",
+          price: 430,
+        },
+        {
+          name: "Yellow Beetroot",
+          description: "Mulled wine, Sour cream",
+          price: 185,
+        },
+        { name: "Buns", description: "Wallnut, Egg liquer", price: 285 },
       ],
       tastingMenus: [
-        { name: 'Short tasting menu', price: 1800 },
-        { name: 'Tasting Menu', description: '(information on pairings will be provided by our team)', price: 2250 }
-      ]
+        { name: "Short tasting menu", price: 1800 },
+        {
+          name: "Tasting Menu",
+          description: "(information on pairings will be provided by our team)",
+          price: 2250,
+        },
+      ],
     },
     drinks: {
-      title: 'Drinks',
+      title: "Drinks",
       columns: [
         [
           {
-            title: 'Soft Drinks',
+            title: "Soft drinks",
             items: [
-              { name: 'Filtered Water / Soda', price: 39 },
-              { name: 'Kombucha JZT', price: 95, tight: true },
-              { name: 'Strawberry Cream Soda', price: 105, tight: true },
-              { name: 'Red Grape Vinea', price: 85 }
-            ]
+              { name: "Filtered Water / Soda", price: 39 },
+              { name: "Kombucha JZT", price: 105, tight: true },
+              { name: "Chestnut Cream Soda", price: 115, tight: true },
+              { name: "Rosehip Ice Tea", price: 95 },
+            ],
           },
-          { title: 'Draft Beer', price: 89 }
+          { title: "Draft Beer", price: 89 },
         ],
         [
           {
-            title: 'Alcohol-free Cocktails',
+            title: "Alcohol-free Cocktails",
             items: [
-              { name: 'Straight Edge X', description: 'Non-aperitivo, Decaf, Cherries', price: 205 },
               {
-                name: 'The Worst Cocktail Ever a.k.a. Small Salty Expensive',
-                description: 'Non-alco Agave, Lacto-ferment Strawberries, Calpico',
-                price: 215
+                name: "KSN #2",
+                description: "Non-aperitivo, Seabuckthorn",
+                price: 205,
               },
-              { name: 'Sober Spritz', description: 'Ibischus non-alco spirit, Vinea, Soda', price: 195 }
-            ]
-          }
-        ]
+              {
+                name: "Non - Negroni",
+                description: "Our Non-alco Vermouth, Herbs",
+                price: 215,
+              },
+              {
+                name: "Sober Paloma",
+                description: "Non-alco Agave spirit, Grapefruit, Salt, Pepper",
+                price: 220,
+              },
+            ],
+          },
+        ],
       ],
       featured: {
-        title: 'Alcoholic Cocktails',
+        title: "Alcoholic Cocktails",
         columns: [
           [
-            { name: 'InCidre Martini', description: 'Calvados, Pommeau, Cidre oxymel', price: 235 },
             {
-              name: 'Theoretically Americano #3',
-              description: 'Bitter, Sweet Vermouth, Amaro, Kombucha',
-              price: 225
+              name: "Forest Mezcal",
+              description:
+                "Mezcal, Vermouth bianco, Sherry fino, Celery, Spruce",
+              price: 235,
             },
-            { name: 'Summer Negroni', description: 'Vermouth blend, Gin blend, Rubby Pampelle', price: 235 },
             {
-              name: 'Cherry Sherry Sangria',
-              description: 'Sherry blend, Cherry Heering, Cherry shrub, Bay leaves',
-              price: 235
+              name: "Cosmopolitan ?",
+              description: "Vodka, Lemon oil, Aronia",
+              price: 245,
             },
-            { name: 'N - Zoni', description: 'Gin, Campari, Grapes, Sage', price: 245 },
             {
-              name: 'Tea Punch Raspberry',
-              description: 'Agricole, Aperol, Amontillado, Raspberry, Pink peppercorn, Raspberry leaf tea',
-              price: 240
-            }
+              name: "Vin VIn High",
+              description:
+                "Pisco, Vermouth, Champagne cordial, Mint, Grapes, Raisins",
+              price: 250,
+            },
+            {
+              name: "Goodbye Summer Negroni",
+              description:
+                "Vermouth blend, Gin blend, Rubby Pampelle, Grapefruit",
+              price: 245,
+            },
+            {
+              name: "Homemade Lemonade",
+              description: "Aquavit, Gin, Grapefruit³, Carraway",
+              price: 255,
+            },
+            {
+              name: "London Fog a.k.a. Autumn Highball",
+              description: "Cognac, Butter, Chestnut, Black tea with milk",
+              price: 260,
+            },
           ],
           [
             {
-              name: 'Strawberry Cream Paloma',
-              description: 'Tequila blanco & cristalino, Champagne cordial, Strawberries, Calpico',
-              price: 255
+              name: "InCidre Martini",
+              description: "Calvados, Pommeau, Cidre oxymel",
+              price: 235,
             },
             {
-              name: 'Vini Bitch',
-              description: 'Vodka, Lillet rosé, Red grape Vinea, Wine vinegar',
-              price: 235
+              name: "Autumn Paper Plane",
+              description: "Bourbon, Aperol, Amaro Nonino, Seabuckthorn",
+              price: 245,
             },
             {
-              name: 'Like Whiskey Sour',
-              description: 'Bourbon, Apricot, Lemon, Chamomile, Egg white',
-              price: 255
-            },
-            { name: 'OrDinAry Maid', description: 'Whisky, Elderflower liqueur, Cucumber', price: 245 },
-            {
-              name: 'ASAP',
-              description: 'Pisco, Vermouth dry, Gran Moravia, Goose berry, Sherry Fino, Verjus, Cheese Garum',
-              price: 245
+              name: "Something instead of Whiskey Sour",
+              description:
+                "Whiskey, Umeshu liquer, Ume plum, Hojicha, Milky foam",
+              price: 255,
             },
             {
-              name: 'Almost Decaf Martini',
-              description: 'Reposado Tequila, Cognac V.S., Coffee Liqueur, Decaf, Blackberry grenadine, Cocoa',
-              price: 245
-            }
-          ]
-        ]
-      }
+              name: "Hazelnut Cappuccino",
+              description:
+                "Rum blend, Coffee, Spicy almond, Hazelnut orgeat, Miso",
+              price: 240,
+            },
+            {
+              name: "Amaro Tonic",
+              description: "Amaro, Water kefir tonic",
+              price: 235,
+            },
+            {
+              name: "Charlie Chaplin Long Version",
+              description: "Sloe Gin, Apricot brandy, Almonds, Rosehip",
+              price: 245,
+            },
+          ],
+        ],
+      },
     },
     tasting: {
-      title: 'Degustation menu',
+      title: "Degustation menu",
       courses: [
-        [{ name: 'Arctic char', description: 'Res currant, Kaymak' }],
+        [{ name: "Arctic char", description: "Res currant, Kaymak" }],
         [
-          { name: 'Corn pancake', description: 'Butter, Popcorn miso' },
-          { name: 'Tomato Salad' }
-        ],
-        [{ name: 'Whole Cauliflower', description: 'Egg yolk, Meatless schnitzel' }],
-        [{ name: 'Chicken peach', description: 'Blaťácké zlato cheese, Chicken skin' }],
-        [
-          { name: 'Pork sausage', description: 'Fennel, Mustard' },
-          { name: 'Grilled courgette', description: 'Hazelnut, Spices' }
+          { name: "Corn pancake", description: "Butter, Popcorn miso" },
+          { name: "Tomato Salad" },
         ],
         [
-          { name: 'Bread', description: 'Green peas, Kaymak' },
-          { name: 'Beef two ways', description: 'Bone marrow, Garum' },
-          { name: 'Vietnamese spinach', description: 'Maggi, Schallots, Garlic' }
+          {
+            name: "Whole Cauliflower",
+            description: "Egg yolk, Meatless schnitzel",
+          },
         ],
-        [{ name: 'Goose berry' }],
-        [{ name: 'Summer fruits', description: 'Tvaroh, Brown butter' }]
-      ]
-    }
-  }
+        [
+          {
+            name: "Chicken peach",
+            description: "Blaťácké zlato cheese, Chicken skin",
+          },
+        ],
+        [
+          { name: "Pork sausage", description: "Fennel, Mustard" },
+          { name: "Grilled courgette", description: "Hazelnut, Spices" },
+        ],
+        [
+          { name: "Bread", description: "Green peas, Kaymak" },
+          { name: "Beef two ways", description: "Bone marrow, Garum" },
+          {
+            name: "Vietnamese spinach",
+            description: "Maggi, Schallots, Garlic",
+          },
+        ],
+        [{ name: "Goose berry" }],
+        [{ name: "Summer fruits", description: "Tvaroh, Brown butter" }],
+      ],
+    },
+  },
 };

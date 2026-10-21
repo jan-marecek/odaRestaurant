@@ -48,7 +48,7 @@
     <div class="food-list">
       {#each menu.food.items as item, index}
         {@render itemRow(item)}
-        {#if index === 10 || index === 12}<div class="menu-space"></div>{/if}
+        {#if index === 9 || index === 11}<div class="menu-space"></div>{/if}
       {/each}
       {#each menu.food.tastingMenus as item}
         {@render itemRow(item)}

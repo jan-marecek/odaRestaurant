@@ -61,7 +61,7 @@ jobs:
           WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
           WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
         run: |
-          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; echo '--- pwd ---'; pwd; echo '--- ls . ---'; ls; bye"
+          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; echo '--- pwd ---'; pwd; echo '--- ls . ---'; ls; bye"
 
       # --delete removes remote files that are no longer in build/, which is
       # what clears out the old site and keeps hashed _app assets from piling
@@ -78,7 +78,7 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && 'yes' || '' }}
         run: |
           set -euo pipefail
-          CONNECT="set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST;"
+          CONNECT="set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST;"
           MIRROR="mirror --reverse --delete --exclude '^\.well-known/'"
 
           if [ -n "$DRY_RUN" ]; then

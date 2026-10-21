@@ -43,10 +43,6 @@ export type Restaurant = {
   socialLinks: string[];
   reservationUrl: string;
   voucherUrl: string;
-  menuDocuments: {
-    food: string;
-    drinks: string;
-  };
   menu: MenuCategory[];
 };
 
@@ -83,9 +79,5 @@ export const restaurant: Restaurant = {
   socialLinks: ["https://www.instagram.com/oda.prague/"],
   reservationUrl: "https://app.tableo.com/r/-lqbXCq",
   voucherUrl: "https://www.smartvoucher.cz/podnik/oda",
-  menuDocuments: {
-    food: "/menu/jidlo.pdf",
-    drinks: "/menu/napoje.pdf",
-  },
   menu: [],
 };

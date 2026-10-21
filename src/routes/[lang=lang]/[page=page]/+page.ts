@@ -7,7 +7,14 @@ const contentRoutes: RouteKey[] = [
   'menu',
   'food',
   'drinks',
-  'tasting',
+  /*
+   * The degustation subpage is deliberately not built. The current tasting
+   * menu lives as an unlinked PDF on the server (menu/degustace.pdf) instead.
+   * To bring the page back, uncomment this entry, the two slugs in
+   * src/params/page.ts and the two `link: "tasting"` lines in
+   * src/lib/data/content.ts.
+   */
+  // 'tasting',
   'visit',
   'about',
   'contact'

@@ -212,29 +212,37 @@ export const menuContent: Record<Language, MenuContent> = {
     tasting: {
       title: "Degustační menu",
       courses: [
-        [{ name: "Ryb - íz", description: "Siven, Rybíz, Letní byliny" }],
-        [
-          { name: "Palačinka", description: "Máslo, Popcorn miso" },
-          { name: "Rajčatový salát" },
-        ],
-        [{ name: "Celý květák", description: "Žloutek, Falešný řízek" }],
         [
           {
-            name: "Broskev bez kuřete",
-            description: "Blaťácké zlato, Kuřecí kůže",
+            name: "Candát",
+            description: "Česnekové výhonky, Ocet z Fernetu Citrus, Libeček",
+          },
+          { name: "Rybí palačinka", description: "Siven, Jikry, Mlíčí" },
+        ],
+        [{ name: "Houby a Kroupy", description: "Černý česnek, Majoránka" }],
+        [
+          {
+            name: "Kanec a Šípek",
+            description: "Tatarák z kýty, Grilovaný bok",
           },
         ],
         [
-          { name: "Párek", description: "Fenykl, Hořčice" },
-          { name: "Grilovaná cuketa", description: "Lískový ořech, koření" },
+          { name: "Kachna", description: "Droby, Stehno, Červené zelí" },
+          {
+            name: "Misozuke",
+            description: "Dýně, Becherovkový ocet, Dýňové miso",
+          },
         ],
+        [{ name: "Cibulový chléb", description: "Rajčatové máslo" }],
         [
-          { name: "Chleba", description: "Hrášek, Škraloup" },
-          { name: "Hovězí na dvakrát", description: "Morek, Garum" },
-          { name: "Vietnamese spinach", description: "Maggi, šalotka, česnek" },
+          { name: "Hovězí", description: "Jazyk, Loupaná plec, Křen" },
+          {
+            name: "Podzimní grilovaná zelenina",
+            description: "Jablečné kosho",
+          },
         ],
-        [{ name: "Angrešt" }],
-        [{ name: "Knedlíkové ovoce", description: "Tvaroh, hnědé máslo" }],
+        [{ name: "Žlutá řepa", description: "Svařák, Zakysaná smetana" }],
+        [{ name: "Buchty", description: "Vlašský ořech, Vaječňák" }],
       ],
     },
   },
@@ -412,37 +420,34 @@ export const menuContent: Record<Language, MenuContent> = {
     tasting: {
       title: "Degustation menu",
       courses: [
-        [{ name: "Arctic char", description: "Res currant, Kaymak" }],
-        [
-          { name: "Corn pancake", description: "Butter, Popcorn miso" },
-          { name: "Tomato Salad" },
-        ],
         [
           {
-            name: "Whole Cauliflower",
-            description: "Egg yolk, Meatless schnitzel",
+            name: "Pike Perch",
+            description: "Garlic shoots, Fernet Citrus vinegar, Lovage",
+          },
+          { name: "Fish Pancake", description: "Arctic char, Roe, Milt" },
+        ],
+        [{ name: "Mushrooms & Barley", description: "Black garlic, Marjoram" }],
+        [
+          {
+            name: "Wild Boar & Rosehip",
+            description: "Tartare, Grilled belly",
           },
         ],
         [
+          { name: "Duck", description: "Offal, Thigh, Red cabbage" },
           {
-            name: "Chicken peach",
-            description: "Blaťácké zlato cheese, Chicken skin",
+            name: "Misozuke",
+            description: "Pumpkin, Becherovka vinegar, Pumpkin miso",
           },
         ],
+        [{ name: "Onion Bread", description: "Tomato butter" }],
         [
-          { name: "Pork sausage", description: "Fennel, Mustard" },
-          { name: "Grilled courgette", description: "Hazelnut, Spices" },
+          { name: "Beef", description: "Tongue, Flat iron, Horseradish" },
+          { name: "Grilled Autumn Veggies", description: "Apple kosho" },
         ],
-        [
-          { name: "Bread", description: "Green peas, Kaymak" },
-          { name: "Beef two ways", description: "Bone marrow, Garum" },
-          {
-            name: "Vietnamese spinach",
-            description: "Maggi, Schallots, Garlic",
-          },
-        ],
-        [{ name: "Goose berry" }],
-        [{ name: "Summer fruits", description: "Tvaroh, Brown butter" }],
+        [{ name: "Yellow Beetroot", description: "Mulled wine, Sour cream" }],
+        [{ name: "Buns", description: "Wallnut, Egg liquer" }],
       ],
     },
   },

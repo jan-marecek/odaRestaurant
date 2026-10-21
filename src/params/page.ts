@@ -6,8 +6,10 @@ const validSlugs = new Set([
   'food-menu',
   'napoje',
   'drinks',
-  'degustacni-menu',
-  'degustation-menu',
+  // Degustation subpage is not built -- see the note in
+  // src/routes/[lang=lang]/[page=page]/+page.ts.
+  // 'degustacni-menu',
+  // 'degustation-menu',
   'navsteva',
   'visit',
   'o-nas',

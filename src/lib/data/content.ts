@@ -97,7 +97,9 @@ export const content: Record<Language, Translation> = {
             },
             {
               title: "Degustační menu",
-              link: "tasting",
+              // Links to the degustation subpage, which is not built --
+              // see src/routes/[lang=lang]/[page=page]/+page.ts.
+              // link: "tasting",
               paragraphs: [
                 "V Ōdě nabízíme krátké a dlouhé tasting menu, postavené na českých a sezónních surovinách a moderních kulinářských technikách.",
                 "Menu doplňujeme o několik možností párování: vinné párování, koktejlové párování, nealkoholické párování.",
@@ -207,7 +209,9 @@ export const content: Record<Language, Translation> = {
             },
             {
               title: "Tasting menu",
-              link: "tasting",
+              // Links to the degustation subpage, which is not built --
+              // see src/routes/[lang=lang]/[page=page]/+page.ts.
+              // link: "tasting",
               paragraphs: [
                 "At Ōda, we offer short and long tasting menus, built around Czech and seasonal ingredients and modern culinary techniques.",
                 "The menu can be complemented by several pairing options: wine pairing, cocktail pairing, non-alcoholic pairing.",

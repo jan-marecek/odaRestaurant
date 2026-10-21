@@ -1,0 +1,65 @@
+name: Deploy to Webglobe
+
+# Production deploys. main stays the dev branch and publishes to GitHub Pages
+# (see deploy-pages.yml); merging main into production ships to odarestaurant.cz.
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Print what would change without uploading or deleting anything
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: webglobe
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check project
+        run: npm run check
+
+      # Deliberately no BASE_PATH. On Webglobe the site is served from the
+      # domain root, unlike the GitHub Pages preview, which lives under
+      # /odaRestaurant/ and therefore sets BASE_PATH in deploy-pages.yml.
+      - name: Build site
+        run: npm run build
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # Webglobe offers encrypted transfer as SFTP/SCP on port 222, not FTPS.
+      #
+      # --delete removes remote files that are no longer in build/, which is
+      # what clears out the old site and keeps hashed _app assets from piling
+      # up. It only ever touches public_html/ -- the sibling _sub, backup,
+      # logs and tmp directories are outside the mirror and are not affected.
+      # .well-known is excluded so an ACME challenge can never be deleted
+      # out from under a certificate renewal.
+      - name: Mirror build/ into public_html/
+        env:
+          LFTP_PASSWORD: ${{ secrets.WEBGLOBE_PASSWORD }}
+          WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
+          WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          lftp -e "set sftp:auto-confirm yes; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; mirror --reverse --delete --verbose=1 $DRY_RUN --exclude '^\.well-known/' build/ public_html/; bye"

@@ -19,6 +19,15 @@ concurrency:
   group: webglobe
   cancel-in-progress: true
 
+env:
+  # Webglobe's SFTP (ProFTPD mod_sftp, file transfer only -- no shell).
+  SFTP_PORT: 222
+  # Pinned so a man-in-the-middle cannot pose as the server. Verified from two
+  # independent networks on 2026-10-21. If Webglobe ever rotates the host key
+  # the deploy fails loudly rather than trusting the new one; confirm the new
+  # fingerprint out of band, then update this line.
+  HOST_KEY_FINGERPRINT: SHA256:3gNYupouTRQXL3YjQDBiOC8/fLbwUUbn5pqJVcU4grk
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -49,8 +58,27 @@ jobs:
       - name: Install lftp and sshpass
         run: sudo apt-get update && sudo apt-get install -y lftp sshpass
 
-      # Webglobe offers encrypted transfer as SFTP/SCP on port 222, not FTPS.
-      #
+      # Fetch the server's host key and refuse to go on unless it matches the
+      # pinned fingerprint. This is what lets the ssh calls below run with
+      # StrictHostKeyChecking=yes instead of blindly trusting whatever answers.
+      - name: Pin the server host key
+        env:
+          WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan -p "$SFTP_PORT" -t ed25519 "$WEBGLOBE_HOST" > "$RUNNER_TEMP/hostkey" 2>/dev/null
+          FOUND=$(ssh-keygen -lf "$RUNNER_TEMP/hostkey" | awk '{ print $2 }')
+          if [ "$FOUND" != "$HOST_KEY_FINGERPRINT" ]; then
+            echo "Host key mismatch."
+            echo "  expected: $HOST_KEY_FINGERPRINT"
+            echo "  got     : $FOUND"
+            echo "Refusing to connect. Verify the new key out of band before updating the pin."
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/hostkey" >> ~/.ssh/known_hosts
+          echo "Host key matches the pin."
+
       # Read-only. Prints where the deploy account actually lands and what is
       # already there, in a handful of lines that stay legible even when the
       # mirror step's output runs to hundreds of lines.
@@ -61,7 +89,7 @@ jobs:
           WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
           WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
         run: |
-          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; echo '--- pwd ---'; pwd; echo '--- ls . ---'; ls; bye"
+          lftp -e "set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p $SFTP_PORT sftp://$WEBGLOBE_HOST; echo '--- pwd ---'; pwd; echo '--- ls . ---'; ls; bye"
 
       # --delete removes remote files that are no longer in build/, which is
       # what clears out the old site and keeps hashed _app assets from piling
@@ -78,7 +106,7 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run && 'yes' || '' }}
         run: |
           set -euo pipefail
-          CONNECT="set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST;"
+          CONNECT="set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set cmd:fail-exit yes; set net:max-retries 1; set net:timeout 20; open -u $WEBGLOBE_USER --env-password -p $SFTP_PORT sftp://$WEBGLOBE_HOST;"
           MIRROR="mirror --reverse --delete --exclude '^\.well-known/'"
 
           if [ -n "$DRY_RUN" ]; then

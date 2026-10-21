@@ -19,14 +19,8 @@
     box-sizing: border-box;
   }
 
+  /* --header-height is declared in src/app.html -- see the note there. */
   :global(html) {
-    /*
-     * Height of the fixed orange bar. Pinned rather than left to the font's
-     * metrics so the 8px gap below it is exact: every page and the nav
-     * overlay space themselves off this value.
-     */
-    --header-height: 40px;
-
     color: #111;
     background: #fff;
     font-family: 'PP Montreal', Arial, sans-serif;

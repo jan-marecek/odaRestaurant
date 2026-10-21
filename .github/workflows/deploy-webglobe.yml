@@ -51,6 +51,18 @@ jobs:
 
       # Webglobe offers encrypted transfer as SFTP/SCP on port 222, not FTPS.
       #
+      # Read-only. Prints where the deploy account actually lands and what is
+      # already there, in a handful of lines that stay legible even when the
+      # mirror step's output runs to hundreds of lines.
+      - name: Inspect remote target
+        env:
+          SSHPASS: ${{ secrets.WEBGLOBE_PASSWORD }}
+          LFTP_PASSWORD: ${{ secrets.WEBGLOBE_PASSWORD }}
+          WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
+          WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
+        run: |
+          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; echo '--- pwd ---'; pwd; echo '--- ls . ---'; ls; bye"
+
       # --delete removes remote files that are no longer in build/, which is
       # what clears out the old site and keeps hashed _app assets from piling
       # up. The deploy account is scoped to public_html, so "." IS the web
@@ -63,6 +75,23 @@ jobs:
           LFTP_PASSWORD: ${{ secrets.WEBGLOBE_PASSWORD }}
           WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
           WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
-          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+          DRY_RUN: ${{ inputs.dry_run && 'yes' || '' }}
         run: |
-          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; mirror --reverse --delete --verbose=1 $DRY_RUN --exclude '^\.well-known/' build/ ./; bye"
+          set -euo pipefail
+          CONNECT="set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST;"
+          MIRROR="mirror --reverse --delete --exclude '^\.well-known/'"
+
+          if [ -n "$DRY_RUN" ]; then
+            # --script writes the plan to a file instead of executing it, so the
+            # summary below is guaranteed to be readable however long the plan is.
+            PLAN="$RUNNER_TEMP/plan.lftp"
+            lftp -e "$CONNECT $MIRROR --script=$PLAN build/ ./; bye"
+            echo "::group::Planned operations (by command)"
+            awk '{ print $1 }' "$PLAN" | sort | uniq -c | sort -rn
+            echo "::endgroup::"
+            echo "=== DELETIONS planned on the server ==="
+            grep -E '^(rm|rmdir)' "$PLAN" || echo "(none -- the target directory is empty)"
+            echo "=== end of deletions ==="
+          else
+            lftp -e "$CONNECT $MIRROR --verbose=1 build/ ./; bye"
+          fi

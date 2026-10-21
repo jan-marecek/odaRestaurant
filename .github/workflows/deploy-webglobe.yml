@@ -44,22 +44,25 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
+      # sshpass is needed because lftp's sftp backend shells out to ssh, and
+      # ssh will not read a password from anywhere but a terminal.
+      - name: Install lftp and sshpass
+        run: sudo apt-get update && sudo apt-get install -y lftp sshpass
 
       # Webglobe offers encrypted transfer as SFTP/SCP on port 222, not FTPS.
       #
       # --delete removes remote files that are no longer in build/, which is
       # what clears out the old site and keeps hashed _app assets from piling
-      # up. It only ever touches public_html/ -- the sibling _sub, backup,
-      # logs and tmp directories are outside the mirror and are not affected.
-      # .well-known is excluded so an ACME challenge can never be deleted
-      # out from under a certificate renewal.
+      # up. The deploy account is scoped to public_html, so "." IS the web
+      # root and the mirror cannot reach the sibling _sub, backup, logs and
+      # tmp directories even if something goes wrong. .well-known is excluded
+      # so an ACME challenge can never be deleted out from under a renewal.
       - name: Mirror build/ into public_html/
         env:
+          SSHPASS: ${{ secrets.WEBGLOBE_PASSWORD }}
           LFTP_PASSWORD: ${{ secrets.WEBGLOBE_PASSWORD }}
           WEBGLOBE_HOST: ${{ secrets.WEBGLOBE_HOST }}
           WEBGLOBE_USER: ${{ secrets.WEBGLOBE_USER }}
           DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
         run: |
-          lftp -e "set sftp:auto-confirm yes; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; mirror --reverse --delete --verbose=1 $DRY_RUN --exclude '^\.well-known/' build/ public_html/; bye"
+          lftp -e "set sftp:auto-confirm yes; set sftp:connect-program 'sshpass -e ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password'; set net:max-retries 3; set net:timeout 30; open -u $WEBGLOBE_USER --env-password -p 222 sftp://$WEBGLOBE_HOST; mirror --reverse --delete --verbose=1 $DRY_RUN --exclude '^\.well-known/' build/ ./; bye"

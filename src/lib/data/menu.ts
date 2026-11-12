@@ -39,54 +39,54 @@ export const menuContent: Record<Language, MenuContent> = {
     food: {
       title: "Jídlo",
       items: [
-        { name: "Chleba", description: "Rajčatové máslo", price: 180 },
-        { name: "Mrkvový salát s jablkem", price: 175 },
+        { name: "Chleba", description: "Rajčatové máslo", price: 185 },
+        { name: "Mrkvový salát s jablkem", price: 195 },
         {
           name: "Candát",
           description: "Česnekové výhonky, Ocet z Fernetu Citrus, Libeček",
-          price: 380,
+          price: 390,
         },
         {
           name: "Houby a Kroupy",
           description: "Černý česnek, Majoránka",
-          price: 275,
+          price: 290,
         },
         {
           name: "Kanec a Šípek",
           description: "Tatarák z kýty, Grilovaný bok",
-          price: 345,
+          price: 385,
         },
         {
           name: "Misozuke",
           description: "Dýně, Ocet z Becherovky, Dýňové miso",
-          price: 165,
+          price: 195,
         },
         {
           name: "Rybí palačinka",
           description: "Siven, Jikry, Mlíčí",
-          price: 295,
+          price: 325,
         },
         {
           name: "Kachna",
           description: "Droby, Stehno, Červené zelí",
-          price: 365,
+          price: 420,
         },
         {
           name: "Podzimní grilovaná zelenina",
           description: "Jablečné kosho",
-          price: 195,
+          price: 215,
         },
         {
           name: "Hovězí",
           description: "Jazyk, Loupaná plec, Křen",
-          price: 430,
+          price: 460,
         },
         {
           name: "Žlutá řepa",
           description: "Svařák, Zakysaná smetana",
-          price: 185,
+          price: 190,
         },
-        { name: "Buchty", description: "Vlašský ořech, Vaječňák", price: 285 },
+        { name: "Buchty", description: "Vlašský ořech, Vaječňák", price: 295 },
       ],
       tastingMenus: [
         { name: "Menší Hostina", price: 1800 },
@@ -104,7 +104,7 @@ export const menuContent: Record<Language, MenuContent> = {
           {
             title: "Nealko",
             items: [
-              { name: "Filtrovaná voda / soda", price: 39 },
+              { name: "Filtrovaná voda / soda", price: 49 },
               { name: "Kombucha JZT", price: 105, tight: true },
               { name: "Kaštanová Cream Soda", price: 115, tight: true },
               { name: "Šípkový ledový čaj", price: 95 },
@@ -142,46 +142,46 @@ export const menuContent: Record<Language, MenuContent> = {
             {
               name: "Forest Mezcal",
               description: "Mezcal, Vermouth bianco, Sherry fino, Celer, Smrk",
-              price: 235,
+              price: 245,
             },
             {
               name: "Cosmopolitan ?",
               description: "Vodka, Citronový olej, Aronie",
-              price: 245,
+              price: 255,
             },
             {
               name: "Vin VIn High",
               description:
                 "Pisco, Vermouth, Champagne cordial, Máta, Hroznové víno, Rozinky",
-              price: 250,
+              price: 260,
             },
             {
               name: "Goodbye Summer Negroni",
               description:
                 "Vermouth blend, Gin blend, Rubby Pampelle, Grapefruit",
-              price: 245,
+              price: 255,
             },
             {
               name: "Homemade Lemonade",
               description: "Aquavit, Gin, Grapefruit³, Kmín",
-              price: 255,
+              price: 265,
             },
             {
               name: "London Fog a.k.a. Autumn Highball",
               description: "Cognac, Máslo, Kaštan, Černý čaj s mlékem",
-              price: 260,
+              price: 265,
             },
           ],
           [
             {
               name: "InCidre Martini",
               description: "Calvados, Pommeau, Cidre oxymel",
-              price: 235,
+              price: 245,
             },
             {
               name: "Autumn Paper Plane",
               description: "Bourbon, Aperol, Amaro Nonino, Rakytník",
-              price: 245,
+              price: 255,
             },
             {
               name: "Something instead of Whiskey Sour",
@@ -193,17 +193,17 @@ export const menuContent: Record<Language, MenuContent> = {
               name: "Hazelnut Cappuccino",
               description:
                 "Rum blend, Káva, Kořeněná mandle, Lískový orgeat, Miso",
-              price: 240,
+              price: 250,
             },
             {
               name: "Amaro Tonic",
               description: "Amaro, Vodní kefír tonic",
-              price: 235,
+              price: 245,
             },
             {
               name: "Charlie Chaplin Long Version",
               description: "Sloe Gin, Meruňkové brandy, Mandle, Šípek",
-              price: 245,
+              price: 255,
             },
           ],
         ],
@@ -250,50 +250,50 @@ export const menuContent: Record<Language, MenuContent> = {
     food: {
       title: "Food",
       items: [
-        { name: "Onion Bread", description: "Tomato butter", price: 180 },
-        { name: "Carrot salad with apples", price: 175 },
+        { name: "Onion Bread", description: "Tomato butter", price: 185 },
+        { name: "Carrot salad with apples", price: 195 },
         {
           name: "Pike Perch",
           description: "Garlic shoots, Fernet Citrus vinegar, Lovage",
-          price: 380,
+          price: 390,
         },
         {
           name: "Mushrooms & Barley",
           description: "Black garlic, Marjoram",
-          price: 275,
+          price: 290,
         },
         {
           name: "Wild Boar & Rosehip",
           description: "Tartare, Grilled belly",
-          price: 345,
+          price: 385,
         },
         {
           name: "Misozuke",
           description: "Pumpkin, Becherovka vinegar, Pumpkin miso",
-          price: 165,
+          price: 195,
         },
         {
           name: "Fish Pancake",
           description: "Arctic char, Roe, Milt",
-          price: 295,
+          price: 325,
         },
-        { name: "Duck", description: "Offal, Thigh, Red cabbage", price: 365 },
+        { name: "Duck", description: "Offal, Thigh, Red cabbage", price: 420 },
         {
           name: "Grilled Autumn Veggies",
           description: "Apple kosho",
-          price: 195,
+          price: 215,
         },
         {
           name: "Beef",
           description: "Tongue, Flat iron, Horseradish",
-          price: 430,
+          price: 460,
         },
         {
           name: "Yellow Beetroot",
           description: "Mulled wine, Sour cream",
-          price: 185,
+          price: 190,
         },
-        { name: "Buns", description: "Wallnut, Egg liquer", price: 285 },
+        { name: "Buns", description: "Wallnut, Egg liquer", price: 295 },
       ],
       tastingMenus: [
         { name: "Short tasting menu", price: 1800 },
@@ -311,7 +311,7 @@ export const menuContent: Record<Language, MenuContent> = {
           {
             title: "Soft drinks",
             items: [
-              { name: "Filtered Water / Soda", price: 39 },
+              { name: "Filtered Water / Soda", price: 49 },
               { name: "Kombucha JZT", price: 105, tight: true },
               { name: "Chestnut Cream Soda", price: 115, tight: true },
               { name: "Rosehip Ice Tea", price: 95 },
@@ -350,46 +350,46 @@ export const menuContent: Record<Language, MenuContent> = {
               name: "Forest Mezcal",
               description:
                 "Mezcal, Vermouth bianco, Sherry fino, Celery, Spruce",
-              price: 235,
+              price: 245,
             },
             {
               name: "Cosmopolitan ?",
               description: "Vodka, Lemon oil, Aronia",
-              price: 245,
+              price: 255,
             },
             {
               name: "Vin VIn High",
               description:
                 "Pisco, Vermouth, Champagne cordial, Mint, Grapes, Raisins",
-              price: 250,
+              price: 260,
             },
             {
               name: "Goodbye Summer Negroni",
               description:
                 "Vermouth blend, Gin blend, Rubby Pampelle, Grapefruit",
-              price: 245,
+              price: 255,
             },
             {
               name: "Homemade Lemonade",
               description: "Aquavit, Gin, Grapefruit³, Carraway",
-              price: 255,
+              price: 265,
             },
             {
               name: "London Fog a.k.a. Autumn Highball",
               description: "Cognac, Butter, Chestnut, Black tea with milk",
-              price: 260,
+              price: 265,
             },
           ],
           [
             {
               name: "InCidre Martini",
               description: "Calvados, Pommeau, Cidre oxymel",
-              price: 235,
+              price: 245,
             },
             {
               name: "Autumn Paper Plane",
               description: "Bourbon, Aperol, Amaro Nonino, Seabuckthorn",
-              price: 245,
+              price: 255,
             },
             {
               name: "Something instead of Whiskey Sour",
@@ -401,17 +401,17 @@ export const menuContent: Record<Language, MenuContent> = {
               name: "Hazelnut Cappuccino",
               description:
                 "Rum blend, Coffee, Spicy almond, Hazelnut orgeat, Miso",
-              price: 240,
+              price: 250,
             },
             {
               name: "Amaro Tonic",
               description: "Amaro, Water kefir tonic",
-              price: 235,
+              price: 245,
             },
             {
               name: "Charlie Chaplin Long Version",
               description: "Sloe Gin, Apricot brandy, Almonds, Rosehip",
-              price: 245,
+              price: 255,
             },
           ],
         ],
